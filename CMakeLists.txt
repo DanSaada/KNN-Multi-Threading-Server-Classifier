@@ -7,4 +7,4 @@ set(CMAKE_CXX_STANDARD 11)
 add_executable(KNN-Server
         Distances/Canberra.h Distances/Canberra.cpp Classify/Catalog.h Classify/Catalog.cpp Distances/Chebyshev.h Distances/Chebyshev.cpp Classify/Database.cpp Classify/Database.h
         Distances/Distance.cpp Distances/Distance.h Distances/Euclidean.cpp Distances/Euclidean.h Server.cpp Distances/Manhattan.cpp Distances/Manhattan.h Distances/Minkowski.cpp
-        Distances/Minkowski.h Server.h Classify/classificationLogic.cpp Classify/classificationLogic.h Commands/Command.h Commands/Command.cpp IO's/DefaultIO.h IO's/DefaultIO.cpp)
+        Distances/Minkowski.h Server.h Classify/classificationLogic.cpp Classify/classificationLogic.h Commands/Command.h Commands/Command.cpp IO's/DefaultIO.h IO's/DefaultIO.cpp Commands/UploadDataCommand.cpp Commands/UploadDataCommand.h Commands/SettingsCommand.cpp Commands/SettingsCommand.h Commands/ClassifyDataCommand.cpp Commands/ClassifyDataCommand.h)
