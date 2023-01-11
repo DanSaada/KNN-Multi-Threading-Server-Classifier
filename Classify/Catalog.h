@@ -5,7 +5,7 @@
 #ifndef WORKS_IN_C___CATALOG_H
 #define WORKS_IN_C___CATALOG_H
 
-#include "Distance.h"
+#include "../Distances/Distance.h"
 
 namespace classifiedCatalog {
     class Catalog {

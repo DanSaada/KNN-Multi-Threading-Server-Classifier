@@ -6,7 +6,7 @@
 #define K_NEAREST_NEIGHBORS_DATABASE_H
 
 
-#include "Distance.h"
+#include "../Distances/Distance.h"
 #include "Catalog.h"
 #include "fstream"
 

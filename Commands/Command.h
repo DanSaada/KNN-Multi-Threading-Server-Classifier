@@ -5,7 +5,7 @@
 #ifndef KNN_SERVER_COMMAND_H
 #define KNN_SERVER_COMMAND_H
 
-#include "DefaultIO.h"
+#include "../IO's/DefaultIO.h"
 #include <string>
 
 using namespace std;

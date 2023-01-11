@@ -6,12 +6,12 @@
 #define PROJECT_CLASSIFICATIONLOGIC_H
 
 #include "Database.h"
-#include "Distance.h"
-#include "Euclidean.h"
-#include "Manhattan.h"
-#include "Chebyshev.h"
-#include "Canberra.h"
-#include "Minkowski.h"
+#include "../Distances/Distance.h"
+#include "../Distances/Euclidean.h"
+#include "../Distances/Manhattan.h"
+#include "../Distances/Chebyshev.h"
+#include "../Distances/Canberra.h"
+#include "../Distances/Minkowski.h"
 #include "cstring"
 
 bool checkStr(string str);

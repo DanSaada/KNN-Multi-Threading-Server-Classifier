@@ -12,31 +12,31 @@ Client.o: Client.cpp
 Server.o: Server.cpp
 	g++ -std=c++11 -Wall -c Server.cpp
 
-classificationLogic.o: classificationLogic.cpp
+classificationLogic.o: Classify/classificationLogic.cpp
 	g++ -std=c++11 -Wall -c classificationLogic.cpp
 
-Distance.o: Distance.cpp
+Distance.o: Distances/Distance.cpp
 	g++ -std=c++11 -Wall -c Distance.cpp
 
-Canberra.o: Canberra.cpp
+Canberra.o: Distances/Canberra.cpp
 	g++ -std=c++11 -Wall -c Canberra.cpp
 
-Catalog.o: Catalog.cpp
+Catalog.o: Classify/Catalog.cpp
 	g++ -std=c++11 -Wall -c Catalog.cpp
 
-Chebyshev.o: Chebyshev.cpp
+Chebyshev.o: Distances/Chebyshev.cpp
 	g++ -std=c++11 -Wall -c Chebyshev.cpp
 
-Database.o: Database.cpp
+Database.o: Classify/Database.cpp
 	g++ -std=c++11 -Wall -c Database.cpp
 
-Euclidean.o: Euclidean.cpp
+Euclidean.o: Distances/Euclidean.cpp
 	g++ -std=c++11 -Wall -c Euclidean.cpp
 
-Manhattan.o: Manhattan.cpp
+Manhattan.o: Distances/Manhattan.cpp
 	g++ -std=c++11 -Wall -c Manhattan.cpp
 
-Minkowski.o: Minkowski.cpp
+Minkowski.o: Distances/Minkowski.cpp
 	g++ -std=c++11 -Wall -c Minkowski.cpp
 
 clean:
