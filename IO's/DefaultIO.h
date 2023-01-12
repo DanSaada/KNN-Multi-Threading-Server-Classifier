@@ -7,10 +7,16 @@
 
 using namespace std;
 #include "string"
+#include "iostream"
 
+//DefaultIO - an abstract class that is used to define ways to interact with the user.
 class DefaultIO {
-string  read();
-void write(string output);
+public:
+    //read a string from the user
+    virtual string  read()=0;
+
+    //write a string to the user
+    virtual void write(string output)=0;
 
 };
 
