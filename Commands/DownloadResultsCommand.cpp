@@ -4,6 +4,6 @@
 
 #include "DownloadResultsCommand.h"
 
-void DownloadResultsCommand::execute() {
-    Command::execute();
+void DownloadResultsCommand::execute(Info *info) {
+
 }

@@ -4,6 +4,6 @@
 
 #include "UploadDataCommand.h"
 
-void UploadDataCommand::execute() {
-    Command::execute();
+void UploadDataCommand::execute(Info *info) {
+
 }

@@ -4,6 +4,6 @@
 
 #include "DisplayResultsCommand.h"
 
-void DisplayResultsCommand::execute() {
-    Command::execute();
+void DisplayResultsCommand::execute(Info *info) {
+
 }

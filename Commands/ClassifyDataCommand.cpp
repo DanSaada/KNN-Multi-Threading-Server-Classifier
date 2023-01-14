@@ -4,6 +4,6 @@
 
 #include "ClassifyDataCommand.h"
 
-void ClassifyDataCommand::execute() {
-    Command::execute();
+void ClassifyDataCommand::execute(Info *info) {
+
 }

@@ -4,6 +4,6 @@
 
 #include "ExitCommand.h"
 
-void ExitCommand::execute() {
-    Command::execute();
+void ExitCommand::execute(Info *info) {
+
 }

@@ -48,4 +48,13 @@ public:
     void select(int left, int right);
 };
 
+
+struct Info{
+    Database *database;
+    bool isUploaded = false;
+    bool isClassified = false;
+    bool isDisplaying = false;
+    bool isDownloading = false;
+};
+
 #endif //K_NEAREST_NEIGHBORS_DATABASE_H

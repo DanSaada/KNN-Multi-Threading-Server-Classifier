@@ -4,6 +4,6 @@
 
 #include "SettingsCommand.h"
 
-void SettingsCommand::execute() {
-    Command::execute();
+void SettingsCommand::execute(Info *info) {
+
 }

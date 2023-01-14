@@ -9,7 +9,7 @@
 class ExitCommand : public Command{
 private:
 public:
-    void execute() override;
+    void execute(Info* info) override;
 };
 
 

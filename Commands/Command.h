@@ -7,6 +7,7 @@
 
 #include "../IO's/DefaultIO.h"
 #include <string>
+#include "../Classify/Database.h"
 
 using namespace std;
 class Command {
@@ -14,7 +15,7 @@ private:
     string description;
     DefaultIO* dio;
 public:
-    virtual void execute() =0;
+    virtual void execute(Info* info) =0;
 
 };
 
