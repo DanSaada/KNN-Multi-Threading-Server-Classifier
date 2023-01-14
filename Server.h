@@ -13,6 +13,8 @@
 #include "arpa/inet.h"
 #include "unistd.h"
 #include "string.h"
+#include "Commands/SettingsCommand.h"
+#include "Commands/Command.h"
 
 class Server {
 private:

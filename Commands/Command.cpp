@@ -4,3 +4,6 @@
 
 #include "Command.h"
 
+const string &Command::getDescription() const {
+    return description;
+}

@@ -199,7 +199,6 @@ int main(int argc, char const *argv[]) {
     }
     //initialize the database
     auto *dataBase = initializeDatabase(argv[1], 1);
-
     //create a server and start a connection
     auto* server = new Server(dataBase, argv[2]);
     server->tcpSocket();

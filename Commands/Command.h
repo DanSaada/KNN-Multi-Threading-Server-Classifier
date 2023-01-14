@@ -13,10 +13,13 @@ using namespace std;
 class Command {
 private:
     string description;
+protected:
     DefaultIO* dio;
+    Command(string& d,DefaultIO *defaultIo):description{d},dio(defaultIo){}
 public:
     virtual void execute(Info* info) =0;
 
+    const string &getDescription() const;
 };
 
 

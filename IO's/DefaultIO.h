@@ -12,6 +12,7 @@ using namespace std;
 //DefaultIO - an abstract class that is used to define ways to interact with the user.
 class DefaultIO {
 public:
+    DefaultIO()= default;
     //read a string from the user
     virtual string  read()=0;
 
