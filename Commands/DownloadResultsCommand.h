@@ -9,6 +9,7 @@
 class DownloadResultsCommand : public Command{
 private:
 public:
+    explicit DownloadResultsCommand(DefaultIO* defaultIo): Command((string &) "5. download results\n", defaultIo){}
     void execute(Info* info) override;
 };
 

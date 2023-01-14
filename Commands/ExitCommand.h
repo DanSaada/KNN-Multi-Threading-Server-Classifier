@@ -9,6 +9,7 @@
 class ExitCommand : public Command{
 private:
 public:
+    explicit ExitCommand(DefaultIO* defaultIo): Command((string &) "8. exit\n", defaultIo){}
     void execute(Info* info) override;
 };
 

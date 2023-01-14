@@ -9,6 +9,7 @@
 class DisplayResultsCommand : public Command{
 private:
 public:
+    explicit DisplayResultsCommand(DefaultIO* defaultIo): Command((string &) "4. display results\n", defaultIo){}
     void execute(Info* info) override;
 };
 

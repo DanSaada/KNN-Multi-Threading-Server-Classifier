@@ -10,6 +10,7 @@
 class UploadDataCommand : public Command{
 private:
 public:
+    explicit UploadDataCommand(DefaultIO* defaultIo): Command((string &) "1. upload an unclassified csv data file\n", defaultIo){}
     void execute(Info* info) override;
 };
 

@@ -17,9 +17,10 @@ class Database {
 private:
     string m_file;
     string m_distanceString;
-    vector<Catalog> m_data;
     int m_k;
 public:
+    vector<Catalog> m_data;
+
     Database(string fileName, int k);
 
     int getK() const;
