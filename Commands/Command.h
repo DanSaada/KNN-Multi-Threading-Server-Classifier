@@ -12,9 +12,9 @@ using namespace std;
 class Command {
 private:
     string description;
-    DefaultIO dio;
+    DefaultIO* dio;
 public:
-    virtual void execute();
+    virtual void execute() =0;
 
 };
 
