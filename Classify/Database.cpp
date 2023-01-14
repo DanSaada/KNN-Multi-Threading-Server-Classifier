@@ -2,6 +2,10 @@
 // Created by Dansa on 06/12/2022
 //
 #include "Database.h"
+#include "../Distances/Euclidean.h"
+#include "../Distances/Manhattan.h"
+#include "../Distances/Chebyshev.h"
+#include "../Distances/Canberra.h"
 
 Database::Database(string fileName, int k) {
     this->m_file = fileName;
@@ -267,5 +271,28 @@ void Database::select(int left, int right) {
 const string &Database::getMDistanceString() const {
     return m_distanceString;
 }
+
+void Database::setMDistanceString(const string &mDistanceString) {
+    m_distanceString = mDistanceString;
+}
+
+Distance *Database::getMDistance() const {
+    return m_distance;
+}
+
+void Database::setMDistance(const string& distance) {
+     if (distance == "MAN") {
+        this->m_distance  =  new Manhattan();
+    } else if (distance == "CHB") {
+        this->m_distance  =  new Chebyshev();
+    } else if (distance == "CAN") {
+        this->m_distance  =  new Canberra();
+    } else if (distance == "MIN") {
+        this->m_distance  =  new Minkowski();
+    } else {
+        this->m_distance  =  new Euclidean();
+    }
+}
+
 
 

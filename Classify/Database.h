@@ -15,6 +15,7 @@ using namespace classifiedCatalog;
 
 class Database {
 private:
+    Distance* m_distance;
     string m_file;
     string m_distanceString;
     int m_k;
@@ -48,6 +49,12 @@ public:
     int partition(int left, int right, int pivot);
 
     const string &getMDistanceString() const;
+
+    void setMDistanceString(const string &mDistanceString);
+
+    Distance *getMDistance() const;
+
+    void setMDistance(const string& distance);
 
     void select(int left, int right);
 };
