@@ -264,3 +264,8 @@ void Database::select(int left, int right) {
     }
 }
 
+const string &Database::getMDistanceString() const {
+    return m_distanceString;
+}
+
+

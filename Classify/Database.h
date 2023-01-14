@@ -16,6 +16,7 @@ using namespace classifiedCatalog;
 class Database {
 private:
     string m_file;
+    string m_distanceString;
     vector<Catalog> m_data;
     int m_k;
 public:
@@ -44,6 +45,8 @@ public:
     void swap(int i, int j);
 
     int partition(int left, int right, int pivot);
+
+    const string &getMDistanceString() const;
 
     void select(int left, int right);
 };
