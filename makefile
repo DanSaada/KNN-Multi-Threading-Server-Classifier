@@ -21,7 +21,7 @@ Distance.o: Distances/Distance.cpp
 Canberra.o: Distances/Canberra.cpp
 	g++ -std=c++11 -Wall -c Canberra.cpp
 
-Catalog.o: Classify/Catalog.cpp
+Catalog.o: Classify/trainCatalog.cpp
 	g++ -std=c++11 -Wall -c Catalog.cpp
 
 Chebyshev.o: Distances/Chebyshev.cpp

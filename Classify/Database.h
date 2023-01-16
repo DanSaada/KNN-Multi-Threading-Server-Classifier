@@ -7,7 +7,7 @@
 
 
 #include "../Distances/Distance.h"
-#include "Catalog.h"
+#include "trainCatalog.h"
 #include "fstream"
 
 
@@ -20,7 +20,7 @@ private:
     string m_distanceString;
     int m_k;
 public:
-    vector<Catalog> m_data;
+    vector<trainCatalog> m_data;
 
     Database(string fileName, int k);
 
@@ -28,9 +28,9 @@ public:
 
     void setK(int k);
 
-    vector<Catalog> *getMData();
+    vector<trainCatalog> *getMData();
 
-    Catalog *setCatalog(string str);
+    trainCatalog *setCatalog(string str);
 
     static bool checkIfNum(string substring);
 

@@ -13,9 +13,9 @@ void UploadDataCommand::execute(Info *info) {
 
     // "$$$" is a sign from the client that means end of file.
     while (csvTrainData != "$$$") {
-        //check validation of the input and create a new Catalog based on the information passed
-        Catalog *newCatalog = info->database->setCatalog(csvTrainData);
-        //insert the new Catalog inside the database
+        //check validation of the input and create a new trainCatalog based on the information passed
+        trainCatalog *newCatalog = info->database->setCatalog(csvTrainData);
+        //insert the new trainCatalog inside the database
         if (newCatalog != nullptr) {
             info->database->m_data.push_back(*newCatalog);
         }

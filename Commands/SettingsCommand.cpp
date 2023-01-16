@@ -11,6 +11,8 @@ void SettingsCommand::execute(Info *info) {
     string newK;
     string newDis;
     int i = 0;
+    bool correctDis = true;
+    bool correctK = true;
     str = this->dio->read();
     if(str.length() == 0){
         return;
@@ -19,23 +21,28 @@ void SettingsCommand::execute(Info *info) {
             newK += str[i];
             ++i;
         }
-        if(isPositiveInteger(newK)){
-            info->database->setK(stoi(newK));
-        }else{
-            this->dio->write("invalid value for K\n");
-        }
+
         ++i;
         if(str.length() > i){
             while(str[i]!='\0'){
                 newDis += str[i];
             }
         }
+
+        if(!isPositiveInteger(newK)){
+            this->dio->write("invalid value for K\n");
+            correctK = false;
+        }
+
         if(newDis != "AUC" || newDis != "CHB" || newDis != "MAN" || newDis != "MIN" || newDis != "CAN"){
             this->dio->write("invalid value for metric\n");
-        }else{
+            correctDis = false;
+        }
+
+        if(correctK && correctDis){
+            info->database->setK(stoi(newK));
             info->database->setMDistanceString(newDis);
             info->database->setMDistance(newDis);
         }
-
     }
 }
