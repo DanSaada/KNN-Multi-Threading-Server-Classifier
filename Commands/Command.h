@@ -15,8 +15,14 @@ private:
     string description;
 protected:
     DefaultIO* dio;
+
+    //constructor
     Command(string& d,DefaultIO *defaultIo):description{d},dio(defaultIo){}
+
 public:
+    //destructor
+    virtual ~Command() = default;
+
     virtual void execute(Info* info) =0;
 
     const string &getDescription() const;

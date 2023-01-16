@@ -7,3 +7,4 @@
 const string &Command::getDescription() const {
     return description;
 }
+
