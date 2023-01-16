@@ -6,7 +6,7 @@
 #define KNN_SERVER_SETTINGSCOMMAND_H
 
 #include "Command.h"
-#include "../Classify/classificationLogic.h"
+#include "../Classify/ClassificationLogic.h"
 
 class SettingsCommand : public Command{
 private:

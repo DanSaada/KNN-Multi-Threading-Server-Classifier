@@ -11,14 +11,14 @@
 
 using namespace std;
 
-class testCatalog : Catalog{
+class TestCatalog : Catalog{
 private:
     string m_name;
     vector<double> m_vector;
     double m_distance;
     int m_id;
 public:
-    testCatalog(string name, vector<double> vector, int id);
+    TestCatalog(string name, vector<double> vector, int id);
 
     void setName(string name);
 

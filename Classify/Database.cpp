@@ -40,7 +40,7 @@ void Database::setK(int k) {
  * getter for the data.
  * @return A pointer to the data member.
  */
-vector<trainCatalog> *Database::getMData() {
+vector<TrainCatalog> *Database::getMData() {
     return &m_data;
 }
 
@@ -102,7 +102,7 @@ bool Database::checkIfNum(string substring) {
  * @param str the string that we get from the user.
  * @return A pointer to a new catalog.
  */
-trainCatalog *Database::setCatalog(string str) {
+TrainCatalog *Database::setCatalog(string str) {
     vector<double> newVector;
     //making a flag to the end of the string.
     str += '\0';
@@ -129,13 +129,13 @@ trainCatalog *Database::setCatalog(string str) {
             return nullptr;
         }
     }
-    auto *newCatalog = new trainCatalog(name, newVector);
+    auto *newCatalog = new TrainCatalog(name, newVector);
     return newCatalog;
 }
 
 /**
  * This function opens the file, reads the file line by line, and then calls the
- * setCatalog function to create a new trainCatalog object.
+ * setCatalog function to create a new TrainCatalog object.
  */
 void Database::setData() {
     ifstream file;
@@ -146,7 +146,7 @@ void Database::setData() {
     }
     string line;
     while (getline(file, line)) {
-        trainCatalog *newCatalog = setCatalog(line);
+        TrainCatalog *newCatalog = setCatalog(line);
         if (newCatalog != nullptr) {
             m_data.push_back(*newCatalog);
         }
@@ -212,12 +212,12 @@ bool Database::compare(int i, int j) {
 }
 
 /**
- * This function swaps the two trainCatalog objects at the given indices
+ * This function swaps the two TrainCatalog objects at the given indices
  * @param i the index of the first item to swap
  * @param j the index of the first item to be swapped
  */
 void Database::swap(int i, int j) {
-    trainCatalog tempCatalog = m_data[i];
+    TrainCatalog tempCatalog = m_data[i];
     m_data[i] = m_data[j];
     m_data[j] = tempCatalog;
 }

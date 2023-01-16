@@ -5,7 +5,7 @@
 #ifndef PROJECT_SERVER_H
 #define PROJECT_SERVER_H
 
-#include "Classify/classificationLogic.h"
+#include "Classify/ClassificationLogic.h"
 #include "iostream"
 #include <sys/socket.h>
 #include <stdio.h>

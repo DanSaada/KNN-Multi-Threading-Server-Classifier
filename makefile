@@ -12,7 +12,7 @@ Client.o: Client.cpp
 Server.o: Server.cpp
 	g++ -std=c++11 -Wall -c Server.cpp
 
-classificationLogic.o: Classify/classificationLogic.cpp
+classificationLogic.o: Classify/ClassificationLogic.cpp
 	g++ -std=c++11 -Wall -c classificationLogic.cpp
 
 Distance.o: Distances/Distance.cpp
@@ -21,7 +21,7 @@ Distance.o: Distances/Distance.cpp
 Canberra.o: Distances/Canberra.cpp
 	g++ -std=c++11 -Wall -c Canberra.cpp
 
-Catalog.o: Classify/trainCatalog.cpp
+Catalog.o: Classify/TrainCatalog.cpp
 	g++ -std=c++11 -Wall -c Catalog.cpp
 
 Chebyshev.o: Distances/Chebyshev.cpp

@@ -9,13 +9,13 @@
 #include "Catalog.h"
 
 namespace classifiedCatalog {
-    class trainCatalog : Catalog{
+    class TrainCatalog : Catalog{
     private:
         string m_name;
         vector<double> m_vector;
         double m_distance;
     public:
-        trainCatalog(string name, vector<double> vector);
+        TrainCatalog(string name, vector<double> vector);
 
         void setName(string name);
 

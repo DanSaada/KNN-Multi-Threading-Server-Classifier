@@ -2,16 +2,16 @@
 // Created by Tomer on 06/12/2022.
 //
 
-#include "trainCatalog.h"
+#include "TrainCatalog.h"
 
 namespace classifiedCatalog {
     /**
-     * constructor of trainCatalog. sets a default distance to 0 because we didn't check
+     * constructor of TrainCatalog. sets a default distance to 0 because we didn't check
      * distances from any vector yet.
      * @param name name of one of the kinds of the catalog.
      * @param vector a vector.
      */
-    trainCatalog::trainCatalog(string name, vector<double> vector) {
+    TrainCatalog::trainCatalog(string name, vector<double> vector) {
         setName(name);
         setVector(vector);
         setDistance(0);
@@ -21,7 +21,7 @@ namespace classifiedCatalog {
      * setter of name.
      * @param name name of the kinds of the catalog.
      */
-    void trainCatalog::setName(string name) {
+    void TrainCatalog::setName(string name) {
         this->m_name = name;
     }
 
@@ -29,7 +29,7 @@ namespace classifiedCatalog {
      * setter of vector
      * @param vector a vector.
      */
-    void trainCatalog::setVector(vector<double> vector) {
+    void TrainCatalog::setVector(vector<double> vector) {
         this->m_vector = vector;
     }
 
@@ -37,7 +37,7 @@ namespace classifiedCatalog {
      * setter of distance.
      * @param distance distance between this vector and the new coming vector
      */
-    void trainCatalog::setDistance(double distance) {
+    void TrainCatalog::setDistance(double distance) {
         this->m_distance = distance;
     }
 
@@ -45,7 +45,7 @@ namespace classifiedCatalog {
      * getter of name.
      * @return string.
      */
-    string trainCatalog::getName() {
+    string TrainCatalog::getName() {
         return this->m_name;
     }
 
@@ -53,7 +53,7 @@ namespace classifiedCatalog {
      * getter of vector.
      * @return vector<double>
      */
-    vector<double> trainCatalog::getVector() {
+    vector<double> TrainCatalog::getVector() {
         return this->m_vector;
     }
 
@@ -61,7 +61,7 @@ namespace classifiedCatalog {
      * getter of distance.
      * @return int.
      */
-    double trainCatalog::getDistance() {
+    double TrainCatalog::getDistance() {
         return this->m_distance;
     }
 }
