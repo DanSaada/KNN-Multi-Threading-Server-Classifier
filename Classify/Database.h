@@ -22,7 +22,7 @@ private:
     int m_k;
 
 public:
-    vector<TrainCatalog> m_data;
+    vector<TrainCatalog> m_Train;
     vector<TestCatalog> m_Test;
 
     Database(string fileName, int k);
@@ -35,9 +35,11 @@ public:
 
     void setMTest(string test);
 
-    vector<TrainCatalog> *getMData();
+    TestCatalog *setTestCatalog(string str);
 
-    TrainCatalog *setCatalog(string str);
+    vector<TrainCatalog> *getMTrain();
+
+    TrainCatalog *setTrainCatalog(string str);
 
     static bool checkIfNum(string substring);
 

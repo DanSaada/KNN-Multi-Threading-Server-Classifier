@@ -26,8 +26,8 @@ int Database::getK() const {
  * @param k - value for size of the neighbors group
  * */
 void Database::setK(int k) {
-    if (k > (int) m_data.size()) {
-        m_k = (int) m_data.size();
+    if (k > (int) m_Train.size()) {
+        m_k = (int) m_Train.size();
         //case k = 0
     } else if(k == 0){
         m_k = 1;
@@ -40,8 +40,8 @@ void Database::setK(int k) {
  * getter for the data.
  * @return A pointer to the data member.
  */
-vector<TrainCatalog> *Database::getMData() {
-    return &m_data;
+vector<TrainCatalog> *Database::getMTrain() {
+    return &m_Train;
 }
 
 /**
@@ -102,7 +102,7 @@ bool Database::checkIfNum(string substring) {
  * @param str the string that we get from the user.
  * @return A pointer to a new catalog.
  */
-TrainCatalog *Database::setCatalog(string str) {
+TrainCatalog *Database::setTrainCatalog(string str) {
     vector<double> newVector;
     //making a flag to the end of the string.
     str += '\0';
@@ -124,8 +124,8 @@ TrainCatalog *Database::setCatalog(string str) {
             substring += x;
         }
     }
-    if (!m_data.empty()) {
-        if (m_data.at(0).getVector().size() != newVector.size()) {
+    if (!m_Train.empty()) {
+        if (m_Train.at(0).getVector().size() != newVector.size()) {
             return nullptr;
         }
     }
@@ -135,7 +135,7 @@ TrainCatalog *Database::setCatalog(string str) {
 
 /**
  * This function opens the file, reads the file line by line, and then calls the
- * setCatalog function to create a new TrainCatalog object.
+ * setTrainCatalog function to create a new TrainCatalog object.
  */
 void Database::setData() {
     ifstream file;
@@ -146,12 +146,49 @@ void Database::setData() {
     }
     string line;
     while (getline(file, line)) {
-        TrainCatalog *newCatalog = setCatalog(line);
+        TrainCatalog *newCatalog = setTrainCatalog(line);
         if (newCatalog != nullptr) {
-            m_data.push_back(*newCatalog);
+            m_Train.push_back(*newCatalog);
         }
     }
     file.close();
+}
+
+/**
+ * It takes a string, checks if it's a number using an auxiliary function, and if it
+ * is, it adds it to a new created vector.
+ * @param str the string that we get from the user.
+ * @return A pointer to a new catalog.
+ */
+TestCatalog *Database::setTestCatalog(string str) {
+    vector<double> newVector;
+    //making a flag to the end of the string.
+    str += '\0';
+    string substring;
+    string name;
+    //iterating over the string.
+    for (char x: str) {
+        if (x == ',') {
+            if (!checkIfNum(substring)) {
+                substring = "";
+                continue;
+            }
+            newVector.push_back(stod(substring));
+            //nullifies the substring and the flag.
+            substring = "";
+        } else if (x == '\0') {
+            name = substring;
+        } else {
+            substring += x;
+        }
+    }
+    if (!m_Train.empty()) {
+        if (m_Train.at(0).getVector().size() != newVector.size()) {
+            return nullptr;
+        }
+    }
+    auto *newCatalog = new TestCatalog(name, newVector);
+    return newCatalog;
 }
 
 
@@ -160,7 +197,10 @@ const vector<TestCatalog> &Database::getMTest() const {
 }
 
 void Database::setMTest(string test) {
-    setCatalog(test);
+    TestCatalog *newCatalog = setTestCatalog(test);
+    if(newCatalog != nullptr){
+        this->m_Test.push_back(*newCatalog);
+    }
 }
 
 /**
@@ -170,10 +210,10 @@ void Database::setMTest(string test) {
  * @return the classification of the new vector
  * */
 string Database::findKNN(vector<double> unclassifiedVector) {
-    for (auto &i: m_data) {
+    for (auto &i: m_Train) {
         i.setDistance(this->m_distance->distance(i.getVector(), unclassifiedVector));
     }
-    select(0, (int) m_data.size() - 1);
+    select(0, (int) m_Train.size() - 1);
     string classified = classifyVector();
     return classified;
 }
@@ -188,7 +228,7 @@ string Database::classifyVector() {
     //iterate over the k's nearest neighbors and update the frequency of each catalog
     for (int i = 0; i < this->m_k; i++) {
         //get the catalog name
-        string group = this->m_data.at(i).getName();
+        string group = this->m_Train.at(i).getName();
         //if name is already in map, increment its frequency by 1
         if (count.find(group) != count.end())
             count[group]++;
@@ -217,7 +257,7 @@ string Database::classifyVector() {
  * @return A boolean value.
  */
 bool Database::compare(int i, int j) {
-    return (m_data[i].getDistance() < m_data[j].getDistance());
+    return (m_Train[i].getDistance() < m_Train[j].getDistance());
 }
 
 /**
@@ -226,9 +266,9 @@ bool Database::compare(int i, int j) {
  * @param j the index of the first item to be swapped
  */
 void Database::swap(int i, int j) {
-    TrainCatalog tempCatalog = m_data[i];
-    m_data[i] = m_data[j];
-    m_data[j] = tempCatalog;
+    TrainCatalog tempCatalog = m_Train[i];
+    m_Train[i] = m_Train[j];
+    m_Train[j] = tempCatalog;
 }
 
 /**

@@ -9,7 +9,7 @@
 #include "Catalog.h"
 
 namespace classifiedCatalog {
-    class TrainCatalog : Catalog{
+    class TrainCatalog : public Catalog{
     private:
         string m_name;
         vector<double> m_vector;

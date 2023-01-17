@@ -4,11 +4,10 @@
 
 #include "TestCatalog.h"
 
-TestCatalog::TestCatalog(string name, vector<double> vector, int id) {
+TestCatalog::TestCatalog(string name, vector<double> vector) {
     setName(name);
     setVector(vector);
     setDistance(0);
-    setId(id);
 }
 
 void TestCatalog::setName(string name) {
@@ -33,12 +32,4 @@ vector<double> TestCatalog::getVector() {
 
 double TestCatalog::getDistance() {
     return this->m_distance;
-}
-
-int TestCatalog::getId() const {
-    return m_id;
-}
-
-void TestCatalog::setId(int id) {
-    this->m_id = id;
 }

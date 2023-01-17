@@ -11,14 +11,13 @@
 
 using namespace std;
 
-class TestCatalog : Catalog{
+class TestCatalog : public Catalog{
 private:
     string m_name;
     vector<double> m_vector;
     double m_distance;
-    int m_id;
 public:
-    TestCatalog(string name, vector<double> vector, int id);
+    TestCatalog(string name, vector<double> vector);
 
     void setName(string name);
 
@@ -29,10 +28,6 @@ public:
     string getName();
 
     vector<double> getVector();
-
-    int getId() const;
-
-    void setId(int id);
 
     double getDistance();
 

@@ -127,7 +127,7 @@ string newVectorClassification(Database *dataBase, Distance *dis, string vec) {
         return "invalid input";
     }
     //check if the vector's size match the size of the vectors from the given file
-    if (v1.size() != dataBase->getMData()->at(0).getVector().size()) {
+    if (v1.size() != dataBase->getMTrain()->at(0).getVector().size()) {
         return "invalid input";
     }
 
