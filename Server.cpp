@@ -162,7 +162,11 @@ while(true) {
     if (client_sock < 0) {
         exit(1);
     }
-
+    thread thread{[this](){
+            auto* ch = new ClientHandler(sock);
+            ch->handle();
+            delete ch;
+    }};
 //    while (true) {
 //        //set a buffer to hold the incoming data
 //        char buffer[4096] = {0};
