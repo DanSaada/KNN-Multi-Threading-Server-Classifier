@@ -9,7 +9,8 @@
 Server::Server(Database* dB, const string& port) {
     this->database = dB;
     this->port = stoi(port);
-    this->sock = socket(AF_INET, SOCK_STREAM, 0);
+    setSocket(socket(AF_INET, SOCK_STREAM, 0));
+    initializeSocket();
 }
 
 /**
@@ -100,9 +101,27 @@ bool Server::breakBuffer(char *buffer, string* brokeBuffer) {
 }
 
 /**
- * This function implements a TCP socket connection protocol between a client and a server.
+ * It returns the socket of the client.
+ *
+ * @return The client socket.
  */
-void Server::tcpSocket() {
+int Server::getSocket() const {
+    return this->sock;
+}
+
+/**
+ * This function sets the clientSocket variable to the socket passed in as a parameter.
+ *
+ * @param socket The socket that the client is connected to.
+ */
+void Server::setSocket(int socket) {
+    this->sock = socket;
+}
+
+/**
+ * This function creates a socket and connects it to the server
+ */
+void Server::initializeSocket() {
 
     //checking creation succeed
     if (sock < 0) {
@@ -127,6 +146,14 @@ void Server::tcpSocket() {
     if (listen(sock, 5) < 0) {
         exit(1);
     }
+
+}
+
+/**
+ * This function implements a TCP socket connection protocol between a client and a server.
+ */
+void Server::tcpSocket() {
+
 while(true) {
     //accept an incoming Client connection
     struct sockaddr_in client_sin;
