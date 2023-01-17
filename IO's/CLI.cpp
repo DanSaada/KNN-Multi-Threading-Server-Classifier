@@ -32,6 +32,7 @@ void CLI::setDio(DefaultIO *dio) {
 
 void CLI::start() {
     Info* info = new Info();
+    string input;
     int userInput;
 
     do {
@@ -44,11 +45,16 @@ void CLI::start() {
         }
 
         //get user's choice
-        userInput = stoi(this->dio->read());
-
+        input = this->dio->read();
+        //check validation of input
+        if(isPositiveInteger(input)){
+           userInput = stoi(input);
+        }else{
+            break;
+        }
         //execute
         if (userInput >= 1 && userInput <= 5) {
-            this->commands.at(userInput-1)->execute(info);
+            this->commands.at(userInput - 1)->execute(info);
         }
 
     } while (userInput != 8);

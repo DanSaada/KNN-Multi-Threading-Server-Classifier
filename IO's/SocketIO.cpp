@@ -9,12 +9,14 @@
 * This function read a string from the client using socket.
 * @return a string from the user
 */
+///////check that works!!!!!!!!!!
 string SocketIO:: read() {
     char temp = 0;
     string data;
 
     //read data from the client char by char and create a string from it
     while (temp != '\n') {
+        ///////////add validation check and size of massage!!!!
         recv(this->clientID, &temp, sizeof(char), 0);
 
         //end of data

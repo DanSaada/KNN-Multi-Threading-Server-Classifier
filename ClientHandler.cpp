@@ -4,11 +4,15 @@
 
 #include "ClientHandler.h"
 
-void ClientHandler::handle(int clientID) {
+void ClientHandler::handle() {
     auto* io = new SocketIO(clientID);
     CLI* cli = new CLI(io);
     cli->start();
 
     delete cli;
     delete io;
+}
+
+ClientHandler::ClientHandler(int id) {
+    this->clientID = id;
 }

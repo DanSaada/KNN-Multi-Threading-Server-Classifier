@@ -10,8 +10,10 @@
 
 
 class ClientHandler {
+private: int clientID;
 public:
-    void handle(int clientID);
+    ClientHandler(int id);
+    void handle();
 };
 
 

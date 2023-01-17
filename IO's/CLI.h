@@ -12,6 +12,7 @@
 #include "../Commands/DisplayResultsCommand.h"
 #include "../Commands/DownloadResultsCommand.h"
 #include "../Commands/ExitCommand.h"
+#include "../Classify/ClassificationLogic.h"
 
 using namespace std;
 
