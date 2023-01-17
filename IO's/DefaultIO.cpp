@@ -11,3 +11,11 @@ string DefaultIO::read() {
 void DefaultIO::write(string output) {
 
 }
+
+int DefaultIO::getId(){
+    return clientId;
+}
+
+void DefaultIO::setId(int id) {
+    DefaultIO::clientId = id;
+}

@@ -13,6 +13,7 @@
 #include "../Commands/DownloadResultsCommand.h"
 #include "../Commands/ExitCommand.h"
 #include "../Classify/ClassificationLogic.h"
+#include "SocketIO.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ class CLI {
 private:
     DefaultIO* dio;
     vector<Command*> commands;
+    Info* info;
 public:
     //constructor
     CLI(DefaultIO* dio);
@@ -34,7 +36,11 @@ public:
 
     void setDio(DefaultIO *dio);
 
+    void TEST();
 
+    bool breakBuffer(char *buffer, string* brokeBuffer);
+
+    string getClassifiction(string* brokeBuffer);
 };
 
 

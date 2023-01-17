@@ -17,7 +17,7 @@ string SocketIO:: read() {
     //read data from the client char by char and create a string from it
     while (temp != '\n') {
         ///////////add validation check and size of massage!!!!
-        recv(this->clientID, &temp, sizeof(char), 0);
+        recv(this->clientId, &temp, sizeof(char), 0);
 
         //end of data
         if(temp == '\n'){
@@ -33,5 +33,9 @@ string SocketIO:: read() {
 * @param text
 */
 void SocketIO:: write(string text) {
-    send(this->clientID, text.c_str(), text.length(), 0);
+    send(this->clientId, text.c_str(), text.length(), 0);
+}
+
+SocketIO::SocketIO(int id) {
+    setId(id);
 };

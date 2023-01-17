@@ -13,10 +13,8 @@
 #include "unistd.h"
 
 class SocketIO : public DefaultIO{
-private:
-    int clientID;
 public:
-    explicit SocketIO(int id):clientID(id){}
+    explicit SocketIO(int id);
 
     string  read() override;
 
