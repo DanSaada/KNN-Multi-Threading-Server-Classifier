@@ -31,7 +31,7 @@ public:
 
     void setK(int k);
 
-    const vector<TestCatalog> &getMTest() const;
+    vector<TestCatalog> *getMTest();
 
     void setMTest(string test);
 

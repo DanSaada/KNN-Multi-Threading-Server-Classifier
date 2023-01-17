@@ -44,6 +44,10 @@ vector<TrainCatalog> *Database::getMTrain() {
     return &m_Train;
 }
 
+vector<TestCatalog> *Database::getMTest() {
+    return &m_Test;
+}
+
 /**
  * This function checks if the string is a valid number.
  *
@@ -189,11 +193,6 @@ TestCatalog *Database::setTestCatalog(string str) {
     }
     auto *newCatalog = new TestCatalog(name, newVector);
     return newCatalog;
-}
-
-
-const vector<TestCatalog> &Database::getMTest() const {
-    return m_Test;
 }
 
 void Database::setMTest(string test) {
