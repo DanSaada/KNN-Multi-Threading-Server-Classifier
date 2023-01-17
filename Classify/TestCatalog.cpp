@@ -4,7 +4,7 @@
 
 #include "TestCatalog.h"
 
-TestCatalog::testCatalog(string name, vector<double> vector, int id) {
+TestCatalog::TestCatalog(string name, vector<double> vector, int id) {
     setName(name);
     setVector(vector);
     setDistance(0);

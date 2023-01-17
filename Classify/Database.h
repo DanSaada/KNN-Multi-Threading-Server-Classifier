@@ -8,6 +8,7 @@
 
 #include "../Distances/Distance.h"
 #include "TrainCatalog.h"
+#include "TestCatalog.h"
 #include "fstream"
 
 
@@ -19,14 +20,20 @@ private:
     string m_file;
     string m_distanceString;
     int m_k;
+
 public:
     vector<TrainCatalog> m_data;
+    vector<TestCatalog> m_Test;
 
     Database(string fileName, int k);
 
     int getK() const;
 
     void setK(int k);
+
+    const vector<TestCatalog> &getMTest() const;
+
+    void setMTest(string test);
 
     vector<TrainCatalog> *getMData();
 
@@ -38,7 +45,7 @@ public:
 
     void add(string newName, vector<double> unclassifiedVector);
 
-    string findKNN(Distance &d, vector<double> unclassifiedVector);
+    string findKNN(vector<double> unclassifiedVector);
 
     string classifyVector();
 

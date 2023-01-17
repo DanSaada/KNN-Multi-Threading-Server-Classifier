@@ -132,5 +132,5 @@ string newVectorClassification(Database *dataBase, Distance *dis, string vec) {
     }
 
     //find the classification of the vector using the KNN algorithm
-    return dataBase->findKNN(*dis, v1);
+    return dataBase->findKNN(v1);
 }

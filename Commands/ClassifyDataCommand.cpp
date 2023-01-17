@@ -11,10 +11,9 @@ void ClassifyDataCommand::execute(Info *info) {
     }
     ///////// testSize of test!!!!! need to change!!!
     unsigned long testSize = info->database->getMData()->size();
-    Distance *dis = info->database->getMDistance();
     auto *vec = info->database->getMData();
     for (unsigned long i = 0; i < testSize; ++i) {
-       info->database->setCatalog(info->database->findKNN(*dis, vec->at(i).getVector()));
+        info->database->setCatalog(info->database->findKNN(vec->at(i).getVector()));
     }
     dio->write("classifying data complete\n");
     info->isClassified = true;

@@ -11,7 +11,7 @@ namespace classifiedCatalog {
      * @param name name of one of the kinds of the catalog.
      * @param vector a vector.
      */
-    TrainCatalog::trainCatalog(string name, vector<double> vector) {
+    TrainCatalog::TrainCatalog(string name, vector<double> vector) {
         setName(name);
         setVector(vector);
         setDistance(0);

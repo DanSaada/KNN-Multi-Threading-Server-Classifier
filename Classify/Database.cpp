@@ -154,15 +154,24 @@ void Database::setData() {
     file.close();
 }
 
+
+const vector<TestCatalog> &Database::getMTest() const {
+    return m_Test;
+}
+
+void Database::setMTest(string test) {
+    setCatalog(test);
+}
+
 /**
  * This function finds the k's nearest neighbors using the select algorithm.
  * @param d - the metric distance algorithm to use
  * @param unclassifiedVector - the new inserted vector to be classified
  * @return the classification of the new vector
  * */
-string Database::findKNN(Distance &d, vector<double> unclassifiedVector) {
+string Database::findKNN(vector<double> unclassifiedVector) {
     for (auto &i: m_data) {
-        i.setDistance(d.distance(i.getVector(), unclassifiedVector));
+        i.setDistance(this->m_distance->distance(i.getVector(), unclassifiedVector));
     }
     select(0, (int) m_data.size() - 1);
     string classified = classifyVector();
