@@ -246,11 +246,11 @@ void Server::tcpSocket() {
  */
 int main(int argc, char const *argv[]) {
     //checking validation of arguments.
-    if (argc != 3) {
+    if (argc != 2) {
         exit(1);
     }
     //checking validation of port
-    if (!isPositiveInteger(argv[2]) || stoi(argv[2]) <= 0 || stoi(argv[2]) > 65535) {
+    if (!isPositiveInteger(argv[1]) || stoi(argv[1]) <= 0 || stoi(argv[1]) > 65535) {
         exit(1);
     }
     //initialize the database

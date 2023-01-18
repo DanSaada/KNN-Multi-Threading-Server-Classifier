@@ -329,16 +329,24 @@ Distance *Database::getMDistance() const {
 }
 
 void Database::setMDistance(const string& distance) {
+    if (getMDistanceString() == distance){
+        return;
+    }
      if (distance == "MAN") {
         this->m_distance  =  new Manhattan();
+         setMDistanceString("MAN");
     } else if (distance == "CHB") {
         this->m_distance  =  new Chebyshev();
+         setMDistanceString("CHB");
     } else if (distance == "CAN") {
         this->m_distance  =  new Canberra();
+         setMDistanceString("CAN");
     } else if (distance == "MIN") {
         this->m_distance  =  new Minkowski();
+         setMDistanceString("MIN");
     } else {
         this->m_distance  =  new Euclidean();
+         setMDistanceString("AUC");
     }
 }
 

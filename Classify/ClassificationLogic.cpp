@@ -97,21 +97,21 @@ Database *initializeDatabase(string file, int k) {
  * @param disAlg the distance algorithm which we want to create an object from
  * @return A pointer to a Distance object.
  */
-Distance *chooseDis(const char *disAlg) {
-    if (strcmp(disAlg, "AUC") == 0) {
-        return new Euclidean();
-    } else if (strcmp(disAlg, "MAN") == 0) {
-        return new Manhattan();
-    } else if (strcmp(disAlg, "CHB") == 0) {
-        return new Chebyshev();
-    } else if (strcmp(disAlg, "CAN") == 0) {
-        return new Canberra();
-    } else if (strcmp(disAlg, "MIN") == 0) {
-        return new Minkowski();
-    } else {
-        return nullptr;
-    }
-}
+//Distance *chooseDis(const char *disAlg) {
+//    if (strcmp(disAlg, "AUC") == 0) {
+//        return new Euclidean();
+//    } else if (strcmp(disAlg, "MAN") == 0) {
+//        return new Manhattan();
+//    } else if (strcmp(disAlg, "CHB") == 0) {
+//        return new Chebyshev();
+//    } else if (strcmp(disAlg, "CAN") == 0) {
+//        return new Canberra();
+//    } else if (strcmp(disAlg, "MIN") == 0) {
+//        return new Minkowski();
+//    } else {
+//        return nullptr;
+//    }
+//}
 
 /**
  * This function creates a vector, finds the classification of the vector using the
