@@ -6,7 +6,7 @@
 
 #include "Server.h"
 
-Server::Server(Database* dB, const string& port) {
+Server::Server(Database *dB, const string &port) {
     this->database = dB;
     this->port = stoi(port);
     setSocket(socket(AF_INET, SOCK_STREAM, 0));
@@ -131,14 +131,14 @@ void Server::initializeSocket() {
     //for sending a group of parameters and get them back we create a struct
     struct sockaddr_in sin;
     //nullify the struct
-    memset(&sin, 0 , sizeof(sin));
+    memset(&sin, 0, sizeof(sin));
     //initialize the struct fields
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = INADDR_ANY;
     sin.sin_port = htons(port);
 
     //bind server to the port and check succeed
-    if(bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+    if (bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
         exit(1);
     }
 
@@ -153,16 +153,47 @@ void Server::initializeSocket() {
  * This function implements a TCP socket connection protocol between a client and a server.
  */
 void Server::tcpSocket() {
-
-while(true) {
-    //accept an incoming Client connection
-    struct sockaddr_in client_sin;
-    unsigned int addr_len = sizeof(client_sin);
-    int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
-    if (client_sock < 0) {
-        exit(1);
+    vector<thread *> tVec;
+    bool error = false;
+    while (true) {
+        //accept an incoming Client connection
+        struct sockaddr_in client_sin;
+        unsigned int addr_len = sizeof(client_sin);
+        int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
+        if (client_sock < 0) {
+            //exit(1); ??????????????????????????????????????
+            error = true;
+            break;
+        }else{
+            //////option 1:
+            auto *client = new thread([client_sock]() {
+                auto *ch = new ClientHandler(client_sock);
+                ch->handle();
+                close(client_sock);
+            });
+            tVec.push_back(client);
+        }
     }
 
+    //if(error == true){exit(1);}
+
+    //wait for all threads to finish their work and delete them
+    for (auto client: tVec) {
+        client->join();
+        delete client;
+    }
+    //close the connection
+    close(sock);
+}
+
+    /////// option 2:
+//    thread thread{[this](){
+//            auto* ch = new ClientHandler(sock);
+//            ch->handle();
+//            delete ch;
+//    }};
+
+////////not relevant anymore because we moved it to CLI
 //    while (true) {
 //        //set a buffer to hold the incoming data
 //        char buffer[4096] = {0};
@@ -202,9 +233,7 @@ while(true) {
 //            exit(1);
 //        }
 //    }
-}
-        close(sock);
-}
+
 
 
 
@@ -217,17 +246,17 @@ while(true) {
  */
 int main(int argc, char const *argv[]) {
     //checking validation of arguments.
-    if(argc != 3){
+    if (argc != 3) {
         exit(1);
     }
     //checking validation of port
-    if(!isPositiveInteger(argv[2]) || stoi(argv[2]) <= 0 || stoi(argv[2]) > 65535 ){
+    if (!isPositiveInteger(argv[2]) || stoi(argv[2]) <= 0 || stoi(argv[2]) > 65535) {
         exit(1);
     }
     //initialize the database
     auto *dataBase = initializeDatabase(argv[1], 1);
     //create a server and start a connection
-    auto* server = new Server(dataBase, argv[2]);
+    auto *server = new Server(dataBase, argv[2]);
     server->tcpSocket();
     return 0;
 }

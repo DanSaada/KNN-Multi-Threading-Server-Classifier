@@ -15,6 +15,8 @@
 #include "string.h"
 #include "Commands/SettingsCommand.h"
 #include "Commands/Command.h"
+#include <thread>
+#include "ClientHandler.h"
 
 class Server {
 private:
