@@ -134,7 +134,7 @@ void Client::communicate() {
             }
             else if(stoi(str) == 4){
                 Send(str);
-                //////receive(); lot of times!!!
+                ///////receive(); lot of times!!!
             }
             else if(stoi(str) == 8){
                Send(str);
