@@ -100,7 +100,7 @@ From your command line:
   
 ```bash
 # Clone this repository.
-$ git clone https://github.com/tomerp1812/TCP-KNN
+$ git clone https://github.com/DanSaada/KNN-Multi-Threading-Server-Classifier
 
 # Go into the repository.
 $ cd TCP-KNN
