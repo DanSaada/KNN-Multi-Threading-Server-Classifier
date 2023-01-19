@@ -15,7 +15,6 @@ class TestCatalog : public Catalog{
 private:
     string m_name;
     vector<double> m_vector;
-    double m_distance;
 public:
     TestCatalog(string name, vector<double> vector);
 
@@ -23,14 +22,9 @@ public:
 
     void setVector(vector<double> vector);
 
-    void setDistance(double distance);
-
     string getName();
 
     vector<double> getVector();
-
-    double getDistance();
-
 
 };
 

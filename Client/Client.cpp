@@ -22,27 +22,6 @@ bool isPositiveInteger(const string &s) {
 }
 
 /**
- * It creates a new client object, initializes the socket, and then communicates with the server
- *
- * @param argc the number of arguments passed to the program
- * @param argv
- *
- * @return The return value of the function.
- */
-int main(int argc, char const *argv[]) {
-    //checks if there are 2 argument put.
-    if (argc != 3) {
-        cout << "Invalid input!" << endl;
-        exit(1);
-    }
-    auto* client = new Client(argv[2], argv[1]);
-    //initialize connection to server
-    client->initializeSocket();
-    client->communicate();
-    return 0;
-}
-
-/**
  * This function takes in a port number and an IP address and sets the serverPort and serverIpAddr variables to the values
  * passed in
  *
@@ -113,31 +92,32 @@ void Client::communicate() {
         string str;
         getline(cin, str);
         if(isPositiveInteger(str)){
+            Send(str);
             if(stoi(str) == 1){
-                Send(str);
+                //print "please upload train massage"
                 receive();
+                //get the path from the user
                 getline(cin, str);
                 uploadData(str);
+                //print "please upload train massage"
                 receive();
+                //get the path from the user
                 getline(cin, str);
                 uploadData(str);
             }
             else if(stoi(str) == 2){
-                Send(str);
                 receive();
                 getline(cin, str);
                 Send(str);
+                receive();
             }
             else if(stoi(str) == 3){
-                Send(str);
                 receive();
             }
             else if(stoi(str) == 4){
-                Send(str);
-                ///////receive(); lot of times!!!
+                receive();
             }
             else if(stoi(str) == 8){
-               Send(str);
                close(getSocket());
                break;
             }
@@ -201,6 +181,7 @@ bool Client::uploadData(string route) {
         Send(line);
     }
     file.close();
+    //end current massages
     Send("$$$");
     return true;
 }
@@ -217,19 +198,46 @@ void Client::Send(string toSend){
 }
 
 ///////////check the return value!!!
-string Client::receive(){
-    char buffer[4096] = {0};
-    int expected_data_len = sizeof(buffer);
-    long read_bytes = recv(getSocket(), buffer, expected_data_len, 0);
-    if(read_bytes == 0){
-        return nullptr;
+void Client::receive(){
+
+    while(true){
+        char buffer[4096] = {0};
+        int expected_data_len = sizeof(buffer);
+        long read_bytes = recv(getSocket(), buffer, expected_data_len, 0);
+        if(read_bytes == 0){
+            continue;
+        }
+        else if (read_bytes < 0){
+            cout << "ERROR" << endl;
+            exit(1);
+        }
+        else {
+            if(buffer[0] == '$' && buffer[1] == '$' && buffer[2] == '$' && read_bytes == 3){
+                break;
+            }
+            cout << buffer << endl;
+            continue;
+        }
     }
-    else if (read_bytes < 0){
-        cout << "ERROR" << endl;
+}
+
+/**
+ * It creates a new client object, initializes the socket, and then communicates with the server
+ *
+ * @param argc the number of arguments passed to the program
+ * @param argv
+ *
+ * @return The return value of the function.
+ */
+int main(int argc, char const *argv[]) {
+    //checks if there are 2 argument put.
+    if (argc != 3) {
+        cout << "Invalid input!" << endl;
         exit(1);
     }
-    else {
-        cout << buffer << endl;
-        return nullptr;
-    }
+    auto* client = new Client(argv[2], argv[1]);
+    //initialize connection to server
+    client->initializeSocket();
+    client->communicate();
+    return 0;
 }

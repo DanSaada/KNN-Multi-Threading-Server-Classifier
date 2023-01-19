@@ -178,7 +178,7 @@ void CLI::start() {
         if(isPositiveInteger(input)){
            userInput = stoi(input);
         }else{
-            break;
+            continue;
         }
         //execute
         if (userInput >= 1 && userInput <= 5) {
@@ -186,6 +186,8 @@ void CLI::start() {
         }
 
     } while (userInput != 8);
+    ///////delete all test and train vectors!!!!
+    delete info->database;
     delete info;
 }
 

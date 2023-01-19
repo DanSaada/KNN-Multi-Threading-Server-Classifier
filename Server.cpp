@@ -6,8 +6,7 @@
 
 #include "Server.h"
 
-Server::Server(Database *dB, const string &port) {
-    this->database = dB;
+Server::Server(const string &port) {
     this->port = stoi(port);
     setSocket(socket(AF_INET, SOCK_STREAM, 0));
     initializeSocket();
@@ -253,10 +252,10 @@ int main(int argc, char const *argv[]) {
     if (!isPositiveInteger(argv[1]) || stoi(argv[1]) <= 0 || stoi(argv[1]) > 65535) {
         exit(1);
     }
-    //initialize the database
-    auto *dataBase = initializeDatabase(argv[1], 1);
+    //initialize the database with default k = 5
+    //auto *dataBase = new Database(5);
     //create a server and start a connection
-    auto *server = new Server(dataBase, argv[2]);
+    auto *server = new Server(argv[1]);
     server->tcpSocket();
     return 0;
 }

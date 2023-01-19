@@ -17,7 +17,6 @@ using namespace classifiedCatalog;
 class Database {
 private:
     Distance* m_distance;
-    string m_file;
     string m_distanceString;
     int m_k;
 
@@ -25,7 +24,7 @@ public:
     vector<TrainCatalog> m_Train;
     vector<TestCatalog> m_Test;
 
-    Database(string fileName, int k);
+    Database(int k, const string& dis);
 
     int getK() const;
 
@@ -43,7 +42,7 @@ public:
 
     static bool checkIfNum(string substring);
 
-    void setData();
+    //void setData();
 
     void add(string newName, vector<double> unclassifiedVector);
 
@@ -70,7 +69,7 @@ public:
 
 
 struct Info{
-    Database *database;
+    Database* database = new Database(5, "AUC");
     bool isUploaded = false;
     bool isClassified = false;
     bool isDisplaying = false;

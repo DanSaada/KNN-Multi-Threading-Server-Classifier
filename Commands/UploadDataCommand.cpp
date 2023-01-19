@@ -6,7 +6,7 @@
 
 void UploadDataCommand::execute(Info *info) {
     this->dio->write("Please upload your local train CSV file.\n");
-
+    this->dio->write("$$$");
 
     string csvTrainData;
     // "$$$" is a sign from the client that means end of file.
@@ -27,6 +27,7 @@ void UploadDataCommand::execute(Info *info) {
     string csvTestData;
 
     this->dio->write("Please upload your local test CSV file.\n");
+    this->dio->write("$$$");
     while(csvTestData != "$$$"){
         csvTestData = this->dio->read();
         TestCatalog *newCatalog = info->database->setTestCatalog(csvTestData);
@@ -36,5 +37,7 @@ void UploadDataCommand::execute(Info *info) {
     }
 
     this->dio->write("Upload complete.\n");
+    this->dio->write("$$$");
     info->isUploaded = true;
+    info->isClassified = false;
 }

@@ -7,10 +7,10 @@
 #include "../Distances/Chebyshev.h"
 #include "../Distances/Canberra.h"
 
-Database::Database(string fileName, int k) {
-    this->m_file = fileName;
-    setData();
+Database::Database(int k, const string& dis) {
     setK(k);
+    setMDistanceString(dis);
+    setMDistance(dis);
 }
 
 /**
@@ -141,22 +141,22 @@ TrainCatalog *Database::setTrainCatalog(string str) {
  * This function opens the file, reads the file line by line, and then calls the
  * setTrainCatalog function to create a new TrainCatalog object.
  */
-void Database::setData() {
-    ifstream file;
-    file.open(m_file, ios::in);
-    if (!file) {
-        cout << "Error: problem with opening file! please check your path.";
-        exit(1);
-    }
-    string line;
-    while (getline(file, line)) {
-        TrainCatalog *newCatalog = setTrainCatalog(line);
-        if (newCatalog != nullptr) {
-            m_Train.push_back(*newCatalog);
-        }
-    }
-    file.close();
-}
+//void Database::setData() {
+//    ifstream file;
+//    file.open(m_file, ios::in);
+//    if (!file) {
+//        cout << "Error: problem with opening file! please check your path.";
+//        exit(1);
+//    }
+//    string line;
+//    while (getline(file, line)) {
+//        TrainCatalog *newCatalog = setTrainCatalog(line);
+//        if (newCatalog != nullptr) {
+//            m_Train.push_back(*newCatalog);
+//        }
+//    }
+//    file.close();
+//}
 
 /**
  * It takes a string, checks if it's a number using an auxiliary function, and if it

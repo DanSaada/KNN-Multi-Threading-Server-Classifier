@@ -29,7 +29,7 @@ public:
     void initializeSocket();
     void communicate();
     void Send(string toSend);
-    string receive();
+    void receive();
 
     int getSocket() const;
 

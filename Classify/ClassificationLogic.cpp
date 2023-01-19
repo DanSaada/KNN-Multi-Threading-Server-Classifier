@@ -81,14 +81,14 @@ vector<double> createVec(string vec) {
  * @param k - number of neighbors
  * @return A pointer to a Database object.
  */
-Database *initializeDatabase(string file, int k) {
-    //checks for the validation of the number of neighbors
-    if (k <= 0) {
-        cout << "oops! You must have a partner for tango!" << endl;
-        exit(1);
-    }
-    return new Database(file, k);
-}
+//Database *initializeDatabase(int k) {
+//    //checks for the validation of the number of neighbors
+//    if (k <= 0) {
+//        cout << "oops! You must have a partner for tango!" << endl;
+//        exit(1);
+//    }
+//    return new Database(k);
+//}
 
 /**
  * This function returns a pointer to a Distance object based on its given parameter.

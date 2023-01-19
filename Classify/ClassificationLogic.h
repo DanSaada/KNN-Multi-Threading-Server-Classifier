@@ -16,7 +16,7 @@
 
 bool checkStr(string str);
 vector<double> createVec();
-Database *initializeDatabase(string file, int k);
+//Database *initializeDatabase(int k);
 Distance *chooseDis(const char *disAlg);
 string newVectorClassification(Database *dataBase, Distance *dis, string vec);
 bool isPositiveInteger(const string &s);

@@ -7,6 +7,7 @@
 void SettingsCommand::execute(Info *info) {
     this->dio->write("The current KNN parameters are: K = " + to_string(info->database->getK())
                            + ", distance metric = " + info->database->getMDistanceString() + "\n");
+    this->dio->write("$$$");
     string str;
     string newK;
     string newDis;
@@ -38,6 +39,7 @@ void SettingsCommand::execute(Info *info) {
             this->dio->write("invalid value for metric\n");
             correctDis = false;
         }
+        this->dio->write("$$$");
 
         if(correctK && correctDis){
             info->database->setK(stoi(newK));

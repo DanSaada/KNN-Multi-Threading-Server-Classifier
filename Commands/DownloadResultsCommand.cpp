@@ -13,7 +13,6 @@ void DownloadResultsCommand::execute(Info *info) {
         dio->write("please classify the data\n");
         return;
     }
-    ///////size of test file!!!!!
     unsigned long testSize = info->database->getMTest()->size();
     string output;
     for (unsigned long i = 0; i < testSize; ++i) {
