@@ -5,7 +5,7 @@
 #ifndef PROJECT_SERVER_H
 #define PROJECT_SERVER_H
 
-#include "Classify/ClassificationLogic.h"
+#include "../Classify/ClassificationLogic.h"
 #include "iostream"
 #include <sys/socket.h>
 #include <stdio.h>
@@ -13,8 +13,8 @@
 #include "arpa/inet.h"
 #include "unistd.h"
 #include "string.h"
-#include "Commands/SettingsCommand.h"
-#include "Commands/Command.h"
+#include "../Commands/SettingsCommand.h"
+#include "../Commands/Command.h"
 #include <thread>
 #include "ClientHandler.h"
 

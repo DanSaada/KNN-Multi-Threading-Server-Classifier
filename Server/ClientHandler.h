@@ -5,8 +5,8 @@
 #ifndef KNN_SERVER_CLIENTHANDLER_H
 #define KNN_SERVER_CLIENTHANDLER_H
 
-#include "IO's/SocketIO.h"
-#include "IO's/CLI.h"
+#include "../IO's/SocketIO.h"
+#include "../IO's/CLI.h"
 
 
 class ClientHandler {

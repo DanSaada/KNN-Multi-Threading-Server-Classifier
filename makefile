@@ -9,7 +9,7 @@ client: Client.o
 Client.o: Client.cpp
 	g++ -std=c++11 -Wall -c Client.cpp
 
-Server.o: Server.cpp
+Server.o: Server/Server.cpp
 	g++ -std=c++11 -Wall -c Server.cpp
 
 classificationLogic.o: Classify/ClassificationLogic.cpp
