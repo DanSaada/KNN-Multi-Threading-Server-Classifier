@@ -99,7 +99,7 @@ void Client::communicate() {
                 //get the path from the user
                 getline(cin, str);
                 uploadData(str);
-                //print "please upload train massage"
+                //print "please upload test massage"
                 receive();
                 //get the path from the user
                 getline(cin, str);
@@ -178,7 +178,7 @@ bool Client::uploadData(string route) {
     }
     string line;
     while (getline(file, line)) {
-        Send(line);
+        Send(line + '#');
     }
     file.close();
     //end current massages
@@ -212,11 +212,20 @@ void Client::receive(){
             exit(1);
         }
         else {
-            if(buffer[0] == '$' && buffer[1] == '$' && buffer[2] == '$'){
+            if(buffer[read_bytes - 3] == '$' && buffer[read_bytes - 2] == '$'
+            && buffer[read_bytes - 1] == '$' && read_bytes > 3){
+                buffer[read_bytes - 3] = '\0';
+                buffer[read_bytes - 2] = '\0';
+                buffer[read_bytes - 1] = '\0';
+                cout << buffer;
                 break;
+            }else if(buffer[read_bytes - 3] == '$' && buffer[read_bytes - 2] == '$'
+                     && buffer[read_bytes - 1] == '$' && read_bytes == 3){
+                break;
+            }else{
+                cout << buffer;
+                continue;
             }
-            cout << buffer << endl;
-            continue;
         }
     }
 }

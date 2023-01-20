@@ -6,17 +6,17 @@
 
 void DownloadResultsCommand::execute(Info *info) {
     if (!info->isUploaded){
-        dio->write("please upload data");
+        dio->write("please upload data\n");
         return;
     }
     if(!info->isClassified){
-        dio->write("please classify the data");
+        dio->write("please classify the data\n");
         return;
     }
     unsigned long testSize = info->database->getMTest()->size();
     string output;
     for (unsigned long i = 0; i < testSize; ++i) {
-        output = to_string(i) + "\t" + info->database->getMTest()->at(i).getName();
+        output = to_string(i) + "\t" + info->database->getMTest()->at(i).getName() + "\n";
         dio->write(output);
     }
 }

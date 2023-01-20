@@ -11,10 +11,14 @@ class UploadDataCommand : public Command{
 private:
 public:
     explicit UploadDataCommand(DefaultIO* defaultIo): Command() {
-        setDescription("1. upload an unclassified csv data file");
+        setDescription("1. upload an unclassified csv data file\n");
         setDio(defaultIo);
 }
     void execute(Info* info) override;
+
+    void CatalogTrainMaker(Info* info, const string& toSplitString);
+
+    void CatalogTestMaker(Info* info, const string& toSplitString);
 
     //~UploadDataCommand() override = default;
 };

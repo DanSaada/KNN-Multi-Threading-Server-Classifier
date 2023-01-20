@@ -6,12 +6,12 @@
 
 void DisplayResultsCommand::execute(Info *info) {
     if (!info->isUploaded){
-        dio->write("please upload data");
+        dio->write("please upload data\n");
         this->dio->write("$$$");
         return;
     }
     if(!info->isClassified){
-        dio->write("please classify the data");
+        dio->write("please classify the data\n");
         this->dio->write("$$$");
         return;
     }
@@ -19,9 +19,9 @@ void DisplayResultsCommand::execute(Info *info) {
     unsigned long testSize = info->database->getMTest()->size();
     string output;
     for (unsigned long i = 0; i < testSize; ++i) {
-        output = to_string(i + 1) + "\t" + info->database->getMTest()->at(i).getName();
+        output = to_string(i + 1) + "\t" + info->database->getMTest()->at(i).getName() + "\n";
         dio->write(output);
     }
-    dio->write("Done.");
+    dio->write("Done.\n");
     this->dio->write("$$$");
 }
