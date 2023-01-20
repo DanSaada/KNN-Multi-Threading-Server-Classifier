@@ -16,16 +16,25 @@ CLI::CLI(DefaultIO *dio) {
     info = new Info();
 }
 
+//destructor
 CLI::~CLI() {
     for(auto* command : this->commands){
         delete command;
     }
 }
 
+/**
+ * getter for the CLI's dio (clientID).
+ * @return dio
+ * */
 DefaultIO *CLI::getDio() const {
     return dio;
 }
 
+/**
+ * setter for the CLI's dio (clientID).
+ * @param dio
+ */
 void CLI::setDio(DefaultIO *dio) {
     this->dio = dio;
 }
@@ -159,20 +168,31 @@ void CLI::setDio(DefaultIO *dio) {
 //    return true;
 //}
 
+/**
+ * This function sends the menu to the client.
+ */
+void CLI::printMenu(){
+    this->dio->write("Welcome to the KNN Classifier Server. Please choose an option:\n");
+    int size = this->commands.size();
+
+    for (int i=0; i< size; i++) {
+        this->dio->write(commands.at(i)->getDescription());
+    }
+    this->dio->write("$$$");
+}
+
+/**
+ * This function sends the menu to the client using an auxiliary function, receives an answer and execute the
+ * proper command.
+ */
 void CLI::start() {
     string input;
     int userInput;
 
     do {
         input = "";
-        this->dio->write("Welcome to the KNN Classifier Server. Please choose an option:\n");
-        int size = this->commands.size();
-
-        //print the menu
-        for (int i=0; i< size; i++) {
-            this->dio->write(commands.at(i)->getDescription());
-        }
-        this->dio->write("$$$");
+        //sends the menu to the client
+        printMenu();
 
         //get user's choice
         input = this->dio->read();
@@ -180,6 +200,7 @@ void CLI::start() {
         if(isPositiveInteger(input)){
            userInput = stoi(input);
         }else{
+            //go to next iteration and print the menu again
             continue;
         }
         //execute

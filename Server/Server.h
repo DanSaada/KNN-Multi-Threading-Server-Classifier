@@ -25,11 +25,17 @@ private:
     int sock;
 public:
     int getSocket() const;
+
     void setSocket(int socket);
+
     void initializeSocket();
+
     explicit Server(const string& port);
+
     string getClassifiction(string* brokeBuffer);
+
     void tcpSocket();
+
     bool breakBuffer(char *buffer, string* brokeBuffer);
 
 };

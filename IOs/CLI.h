@@ -36,6 +36,8 @@ public:
 
     void setDio(DefaultIO *dio);
 
+    void printMenu();
+
     void TEST();
 
     bool breakBuffer(char *buffer, string* brokeBuffer);

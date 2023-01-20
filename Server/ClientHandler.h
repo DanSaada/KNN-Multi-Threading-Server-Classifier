@@ -10,9 +10,11 @@
 
 
 class ClientHandler {
-private: int clientID;
+private:
+    int clientID;
 public:
     ClientHandler(int id);
+
     void handle();
 };
 

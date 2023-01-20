@@ -21,10 +21,8 @@ public:
 
     void setId(int id);
 
-    //read a string from the user
     virtual string  read()=0;
 
-    //write a string to the user
     virtual void write(string output)=0;
 
     //destructor

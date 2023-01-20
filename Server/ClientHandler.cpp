@@ -4,6 +4,14 @@
 
 #include "ClientHandler.h"
 
+//constructor
+ClientHandler::ClientHandler(int id) {
+    this->clientID = id;
+}
+
+/**
+ * This function handle a specific client's orders.
+ * */
 void ClientHandler::handle() {
     auto* io = new SocketIO(clientID);
     CLI* cli = new CLI(io);
@@ -13,6 +21,3 @@ void ClientHandler::handle() {
     delete io;
 }
 
-ClientHandler::ClientHandler(int id) {
-    this->clientID = id;
-}

@@ -30,10 +30,15 @@ private:
     DefaultIO *printer;
 public:
     explicit Client(const string& port, const char* ipAddr);
+
     bool uploadData(string route);
+
     void initializeSocket();
+
     void communicate();
+
     void Send(string toSend);
+
     void receive();
 
     int getSocket() const;

@@ -24,6 +24,7 @@ string SocketIO:: read() {
         }else{
             int i = 0;
             while (buffer[i] != '\0') {
+                //remove the $'s sign we add to the message
                 if(read_bytes >= 3 && buffer[i - 2] == '$' && buffer[i - 1] == '$' && buffer[i] == '$'){
                     buffer[i - 2] = '\0';
                     buffer[i - 1] = '\0';
@@ -68,6 +69,7 @@ void SocketIO:: write(string toSend) {
     toSend.copy(data_addr, toSend.length(), 0);
     int data_len = (int) strlen(data_addr);
     long sent_bytes = send(this->clientId, data_addr, data_len, 0);
+    //check that message was sent properly
     if(sent_bytes < 0){
         cout << "ERROR" << endl;
         exit(1);
@@ -76,6 +78,7 @@ void SocketIO:: write(string toSend) {
    // send(this->clientId, toSend.c_str(), toSend.length(), 0);
 }
 
+//constructor
 SocketIO::SocketIO(int id) {
     setId(id);
 };
