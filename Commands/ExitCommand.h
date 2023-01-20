@@ -9,10 +9,8 @@
 class ExitCommand : public Command{
 private:
 public:
-    explicit ExitCommand(DefaultIO* defaultIo): Command(){
-        setDescription("8. exit\n");
-        setDio(defaultIo);
-}
+    explicit ExitCommand(DefaultIO* defaultIo);
+
     void execute(Info* info) override;
 };
 

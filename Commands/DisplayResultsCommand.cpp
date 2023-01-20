@@ -4,7 +4,18 @@
 
 #include "DisplayResultsCommand.h"
 
+//constructor
+DisplayResultsCommand::DisplayResultsCommand(DefaultIO* defaultIo): Command(){
+    setDescription("4. display results\n");
+    setDio(defaultIo);
+}
+
+/**
+ * This function execute the DisplayResultsCommand command which basically display the new classified vectors.
+ * @param info - a struct holding relevant information for the communication between the commands.
+ */
 void DisplayResultsCommand::execute(Info *info) {
+    //check that the user already uploaded the classified files
     if (!info->isUploaded){
         dio->write("please upload data\n");
         this->dio->write("$$$");
@@ -12,6 +23,7 @@ void DisplayResultsCommand::execute(Info *info) {
             return;
         }
     }
+    //check that the user already classified the data
     if(!info->isClassified){
         dio->write("please classify the data\n");
         this->dio->write("$$$");
@@ -20,6 +32,7 @@ void DisplayResultsCommand::execute(Info *info) {
         }
     }
 
+    //send a numbered list of the vectors classification
     unsigned long testSize = info->database->getMTest()->size();
     string output;
     for (unsigned long i = 0; i < testSize; ++i) {

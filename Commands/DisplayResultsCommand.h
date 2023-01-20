@@ -9,10 +9,8 @@
 class DisplayResultsCommand : public Command{
 private:
 public:
-    explicit DisplayResultsCommand(DefaultIO* defaultIo): Command(){
-        setDescription("4. display results\n");
-        setDio(defaultIo);
-}
+    explicit DisplayResultsCommand(DefaultIO* defaultIo);
+
     void execute(Info* info) override;
 };
 

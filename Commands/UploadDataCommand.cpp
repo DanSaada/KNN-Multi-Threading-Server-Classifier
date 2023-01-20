@@ -4,6 +4,12 @@
 
 #include "UploadDataCommand.h"
 
+//constructor
+UploadDataCommand::UploadDataCommand(DefaultIO* defaultIo): Command() {
+    setDescription("1. upload an unclassified csv data file\n");
+    setDio(defaultIo);
+}
+
 void UploadDataCommand::CatalogTrainMaker(Info* info, const string& toSplitString){
     string substring;
     char arr[toSplitString.size()];
@@ -39,14 +45,22 @@ void UploadDataCommand::CatalogTestMaker(Info* info, const string& toSplitString
     }
 }
 
+/**
+ * This function execute the SUploadDataCommand command which basically uploads the classified and the unclassified
+ * files.
+ * @param info - a struct holding relevant information for the communication between the commands.
+ */
 void UploadDataCommand::execute(Info *info) {
+    //if the user uploads new files then the old database should be deleted
     info->isUploaded = false;
+    //delete the old classified vectors file
     if(!info->database->m_Train.empty()){
         for (unsigned long i = info->database->m_Train.size() - 1; i > 0; --i) {
             info->database->m_Train.at(i).getVector().pop_back();
             info->database->m_Train.pop_back();
         }
     }
+    //delete the old unclassified vectors file
     if(!info->database->m_Test.empty()){
         for (unsigned long i = info->database->m_Test.size() - 1; i > 0; --i) {
             info->database->m_Test.at(i).getVector().pop_back();

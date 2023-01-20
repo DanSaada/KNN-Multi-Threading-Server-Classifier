@@ -9,10 +9,8 @@
 class DownloadResultsCommand : public Command{
 private:
 public:
-    explicit DownloadResultsCommand(DefaultIO* defaultIo): Command(){
-        setDescription("5. download results\n");
-        setDio(defaultIo);
-}
+    explicit DownloadResultsCommand(DefaultIO* defaultIo);
+
     void execute(Info* info) override;
 };
 

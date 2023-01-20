@@ -16,10 +16,6 @@ private:
 protected:
     DefaultIO* dio;
 
-    //constructor
-//    Command(string& d,DefaultIO *defaultIo):description{d},dio(defaultIo){}
-      //Command();
-
 public:
     //destructor
     virtual ~Command() = default;

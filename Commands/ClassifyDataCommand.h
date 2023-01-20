@@ -10,10 +10,8 @@
 class ClassifyDataCommand : public Command{
 private:
 public:
-    explicit ClassifyDataCommand(DefaultIO* defaultIo): Command(){
-        setDescription("3. classify data\n");
-        setDio(defaultIo);
-}
+    explicit ClassifyDataCommand(DefaultIO* defaultIo);
+
     void execute(Info* info) override;
 };
 
