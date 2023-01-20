@@ -5,7 +5,7 @@
 #ifndef KNN_SERVER_COMMAND_H
 #define KNN_SERVER_COMMAND_H
 
-#include "../IO's/DefaultIO.h"
+#include "../IOs/DefaultIO.h"
 #include <string>
 #include "../Classify/Database.h"
 

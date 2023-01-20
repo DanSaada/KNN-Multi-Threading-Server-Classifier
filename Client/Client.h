@@ -16,9 +16,9 @@
 #include <unistd.h>
 #include <cstring>
 #include "fstream"
-#include "../IO's/DefaultIO.h"
-#include "../IO's/SocketIO.h"
-#include "../IO's/StandardIO.h"
+#include "../IOs/DefaultIO.h"
+#include "../IOs/SocketIO.h"
+#include "../IOs/StandardIO.h"
 
 using namespace std;
 class Client{
