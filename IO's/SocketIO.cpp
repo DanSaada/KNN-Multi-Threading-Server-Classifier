@@ -11,6 +11,7 @@
 */
 ///////check that works!!!!!!!!!!
 string SocketIO:: read() {
+    string toRead;
     while(true) {
         char buffer[4096] = {0};
         int expected_data_len = sizeof(buffer);
@@ -22,14 +23,22 @@ string SocketIO:: read() {
             exit(1);
         }else{
             int i = 0;
-            string toRead;
             while (buffer[i] != '\0') {
-                toRead += buffer[i];
+                if(read_bytes >= 3 && buffer[i - 2] == '$' && buffer[i - 1] == '$' && buffer[i] == '$'){
+                    buffer[i - 2] = '\0';
+                    buffer[i - 1] = '\0';
+                    buffer[i] = '\0';
+                    return toRead;
+                }
+                if(buffer[i] != '$'){
+                    toRead += buffer[i];
+                }
                 i++;
             }
-            return toRead;
         }
+
     }
+
 
 
 
@@ -52,11 +61,11 @@ string SocketIO:: read() {
 
 /**
 * This function write a string to the client using socket.
-* @param text
+* @param toSend
 */
-void SocketIO:: write(string text) {
+void SocketIO:: write(string toSend) {
     char data_addr[4096] = {0};
-    text.copy(data_addr, text.length(), 0);
+    toSend.copy(data_addr, toSend.length(), 0);
     int data_len = (int) strlen(data_addr);
     long sent_bytes = send(this->clientId, data_addr, data_len, 0);
     if(sent_bytes < 0){
@@ -64,7 +73,7 @@ void SocketIO:: write(string text) {
         exit(1);
     }
 
-   // send(this->clientId, text.c_str(), text.length(), 0);
+   // send(this->clientId, toSend.c_str(), toSend.length(), 0);
 }
 
 SocketIO::SocketIO(int id) {

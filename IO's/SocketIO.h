@@ -19,7 +19,7 @@ public:
 
     string  read() override;
 
-    void write(string output) override;
+    void write(string toSend) override;
 };
 
 

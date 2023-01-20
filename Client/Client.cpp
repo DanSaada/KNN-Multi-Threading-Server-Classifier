@@ -36,6 +36,7 @@ Client::Client(const string& port, const char* ipAddr) {
     this->serverIpAddr = ipAddr;
     //default socket
     this->clientSocket = -1;
+    this->printer = new StandardIO();
 }
 
 /**
@@ -80,6 +81,7 @@ void Client::initializeSocket() {
         cout << "error connecting to server" << endl;
         exit(1);
     }
+    this->dio = new SocketIO(getSocket());
 
 }
 
@@ -87,43 +89,48 @@ void Client::initializeSocket() {
  * It takes in a string from the user, sends it to the server, and then prints out the response from the server
  */
 void Client::communicate() {
+    string invalidOption;
     while (true) {
-        receive();
+        //print the menu
+        cout << this->dio->read();
         string str;
         getline(cin, str);
         if(isPositiveInteger(str)){
-            Send(str);
+            this->dio->write(str + "$$$");
             if(stoi(str) == 1){
                 //print "please upload train massage"
-                receive();
+                cout << this->dio->read();
                 //get the path from the user
                 getline(cin, str);
                 uploadData(str);
                 //print "please upload test massage"
-                receive();
+                cout << this->dio->read();
                 //get the path from the user
                 getline(cin, str);
                 uploadData(str);
+                cout << this->dio->read();
             }
             else if(stoi(str) == 2){
-                receive();
+                cout << this->dio->read();
                 getline(cin, str);
-                Send(str);
-                // no need for this recive?
-                //receive();
+                this->dio->write(str + "$$$");
+                invalidOption = this->dio->read();
+                if(!invalidOption.empty()){
+                    cout << invalidOption;
+                }
             }
             else if(stoi(str) == 3){
-                receive();
+                this->dio->read();
             }
             else if(stoi(str) == 4){
-                receive();
+                this->dio->read();
             }
             else if(stoi(str) == 8){
                close(getSocket());
                break;
             }
         }
-        Send(str);
+        //this->dio->write(str + "$$$");
     }
 }
 
@@ -179,11 +186,11 @@ bool Client::uploadData(string route) {
     }
     string line;
     while (getline(file, line)) {
-        Send(line + '#');
+        this->dio->write(line);
     }
     file.close();
     //end current massages
-    Send("$$$");
+    this->dio->write("$$$");
     return true;
 }
 

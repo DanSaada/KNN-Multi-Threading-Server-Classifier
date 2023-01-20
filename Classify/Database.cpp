@@ -26,10 +26,7 @@ int Database::getK() const {
  * @param k - value for size of the neighbors group
  * */
 void Database::setK(int k) {
-    if (k > (int) m_Train.size()) {
-        m_k = (int) m_Train.size();
-        //case k = 0
-    } else if(k == 0){
+    if(k == 0){
         m_k = 1;
     }else{
         m_k = k;
@@ -224,6 +221,9 @@ string Database::findKNN(vector<double> unclassifiedVector) {
 string Database::classifyVector() {
     // Create an empty map
     map<string, int> count;
+    if(this->m_k > m_Train.size()){
+        this->m_k = (int) this->m_Train.size();
+    }
     //iterate over the k's nearest neighbors and update the frequency of each catalog
     for (int i = 0; i < this->m_k; i++) {
         //get the catalog name

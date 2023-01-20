@@ -16,6 +16,9 @@
 #include <unistd.h>
 #include <cstring>
 #include "fstream"
+#include "../IO's/DefaultIO.h"
+#include "../IO's/SocketIO.h"
+#include "../IO's/StandardIO.h"
 
 using namespace std;
 class Client{
@@ -23,6 +26,8 @@ private:
     int clientSocket;
     int serverPort;
     const char *serverIpAddr;
+    DefaultIO *dio;
+    DefaultIO *printer;
 public:
     explicit Client(const string& port, const char* ipAddr);
     bool uploadData(string route);

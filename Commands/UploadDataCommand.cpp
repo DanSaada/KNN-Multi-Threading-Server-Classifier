@@ -75,7 +75,7 @@ void UploadDataCommand::execute(Info *info) {
     //}
 
     this->dio->write("Upload complete.\n");
-  ///////////  this->dio->write("$$$");
+    this->dio->write("$$$");
     info->isUploaded = true;
     info->isClassified = false;
 }
