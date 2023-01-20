@@ -27,6 +27,7 @@ void SettingsCommand::execute(Info *info) {
         if(str.length() > i){
             while(str[i]!='\0'){
                 newDis += str[i];
+                i++;
             }
         }
 
@@ -35,7 +36,7 @@ void SettingsCommand::execute(Info *info) {
             correctK = false;
         }
 
-        if(newDis != "AUC" || newDis != "CHB" || newDis != "MAN" || newDis != "MIN" || newDis != "CAN"){
+        if(newDis != "AUC" && newDis != "CHB" && newDis != "MAN" && newDis != "MIN" && newDis != "CAN"){
             this->dio->write("invalid value for metric\n");
             correctDis = false;
         }

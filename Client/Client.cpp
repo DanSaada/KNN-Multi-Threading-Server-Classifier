@@ -109,7 +109,8 @@ void Client::communicate() {
                 receive();
                 getline(cin, str);
                 Send(str);
-                receive();
+                // no need for this recive?
+                //receive();
             }
             else if(stoi(str) == 3){
                 receive();
