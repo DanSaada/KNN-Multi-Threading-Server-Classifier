@@ -10,9 +10,16 @@
 class UploadDataCommand : public Command{
 private:
 public:
-    explicit UploadDataCommand(DefaultIO* defaultIo): Command((string &) "1. upload an unclassified csv data file\n", defaultIo){}
+    explicit UploadDataCommand(DefaultIO* defaultIo): Command() {
+        setDescription("1. upload an unclassified csv data file");
+        setDio(defaultIo);
+}
     void execute(Info* info) override;
+
+    //~UploadDataCommand() override = default;
 };
+
+
 
 
 #endif //KNN_SERVER_UPLOADDATACOMMAND_H

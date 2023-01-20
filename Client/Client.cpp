@@ -212,7 +212,7 @@ void Client::receive(){
             exit(1);
         }
         else {
-            if(buffer[0] == '$' && buffer[1] == '$' && buffer[2] == '$' && read_bytes == 3){
+            if(buffer[0] == '$' && buffer[1] == '$' && buffer[2] == '$'){
                 break;
             }
             cout << buffer << endl;

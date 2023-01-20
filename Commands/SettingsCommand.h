@@ -11,7 +11,10 @@
 class SettingsCommand : public Command{
 private:
 public:
-    explicit SettingsCommand(DefaultIO* defaultIo): Command((string &) "2. algorithm settings\n", defaultIo){}
+    explicit SettingsCommand(DefaultIO* defaultIo): Command(){
+        setDescription("2. algorithm settings");
+        setDio(defaultIo);
+}
     void execute(Info* info) override;
 };
 

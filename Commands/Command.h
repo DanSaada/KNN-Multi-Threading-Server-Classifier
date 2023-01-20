@@ -17,7 +17,8 @@ protected:
     DefaultIO* dio;
 
     //constructor
-    Command(string& d,DefaultIO *defaultIo):description{d},dio(defaultIo){}
+//    Command(string& d,DefaultIO *defaultIo):description{d},dio(defaultIo){}
+      //Command();
 
 public:
     //destructor
@@ -26,7 +27,9 @@ public:
     virtual void execute(Info* info) =0;
 
     const string &getDescription() const;
+
+    void setDescription(const string &description);
+
+    void setDio(DefaultIO *dio);
 };
-
-
 #endif //KNN_SERVER_COMMAND_H

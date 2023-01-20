@@ -164,13 +164,14 @@ void CLI::start() {
     int userInput;
 
     do {
-        this->dio->write("Welcome to the KNN Classifier Server. Please choose an option:\n");
+        this->dio->write("Welcome to the KNN Classifier Server. Please choose an option:");
         int size = this->commands.size();
 
         //print the menu
         for (int i=0; i< size; i++) {
             this->dio->write(commands.at(i)->getDescription());
         }
+        this->dio->write("$$$");
 
         //get user's choice
         input = this->dio->read();

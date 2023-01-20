@@ -6,7 +6,7 @@
 
 void ClassifyDataCommand::execute(Info *info) {
     if (!info->isUploaded){
-        dio->write("please upload data\n");
+        dio->write("please upload data");
         dio->write("$$$");
         return;
     }
@@ -15,7 +15,7 @@ void ClassifyDataCommand::execute(Info *info) {
     for (unsigned long i = 0; i < testSize; ++i) {
         testVectors->at(i).setName(info->database->findKNN(testVectors->at(i).getVector()));
     }
-    dio->write("classifying data complete\n");
+    dio->write("classifying data complete");
     this->dio->write("$$$");
     info->isClassified = true;
 }

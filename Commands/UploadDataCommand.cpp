@@ -5,7 +5,7 @@
 #include "UploadDataCommand.h"
 
 void UploadDataCommand::execute(Info *info) {
-    this->dio->write("Please upload your local train CSV file.\n");
+    this->dio->write("Please upload your local train CSV file.");
     this->dio->write("$$$");
 
     string csvTrainData;
@@ -21,12 +21,12 @@ void UploadDataCommand::execute(Info *info) {
             info->database->m_Train.push_back(*newCatalog);
         }
     }
-    this->dio->write("Upload complete.\n");
+    this->dio->write("Upload complete.");
 
     //read CSV test data from the client
     string csvTestData;
 
-    this->dio->write("Please upload your local test CSV file.\n");
+    this->dio->write("Please upload your local test CSV file.");
     this->dio->write("$$$");
     while(csvTestData != "$$$"){
         csvTestData = this->dio->read();
@@ -36,8 +36,9 @@ void UploadDataCommand::execute(Info *info) {
         }
     }
 
-    this->dio->write("Upload complete.\n");
+    this->dio->write("Upload complete.");
     this->dio->write("$$$");
     info->isUploaded = true;
     info->isClassified = false;
 }
+

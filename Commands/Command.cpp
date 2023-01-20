@@ -12,3 +12,11 @@ const string &Command::getDescription() const {
     return description;
 }
 
+void Command::setDescription(const string &description) {
+    Command::description = description;
+}
+
+void Command::setDio(DefaultIO *dio) {
+    Command::dio = dio;
+}
+

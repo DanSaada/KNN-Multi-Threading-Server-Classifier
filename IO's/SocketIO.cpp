@@ -11,21 +11,43 @@
 */
 ///////check that works!!!!!!!!!!
 string SocketIO:: read() {
-    char temp = 0;
-    string data;
-
-    //read data from the client char by char and create a string from it
-    while (temp != '\n') {
-        ///////////add validation check and size of massage!!!!
-        recv(this->clientId, &temp, sizeof(char), 0);
-
-        //end of data
-        if(temp == '\n'){
-            break;
+    while(true) {
+        char buffer[4096] = {0};
+        int expected_data_len = sizeof(buffer);
+        long read_bytes = recv(this->clientId, buffer, expected_data_len, 0);
+        if (read_bytes == 0) {
+            continue;
+        } else if (read_bytes < 0) {
+            cout << "ERROR" << endl;
+            exit(1);
+        }else{
+            int i = 0;
+            string toRead;
+            while (buffer[i] != '\0') {
+                toRead += buffer[i];
+                i++;
+            }
+            return toRead;
         }
-        data += temp;
     }
-    return data;
+
+
+
+//    char temp[4096] = {0};
+//    string data;
+//
+//    //read data from the client char by char and create a string from it
+//    while (temp != '\n') {
+//        ///////////add validation check and size of massage!!!!
+//        recv(this->clientId, &temp, sizeof(char), 0);
+//
+//        //end of data
+//        if(temp == '\n'){
+//            break;
+//        }
+//        data += temp;
+//    }
+//    return data;
 };
 
 /**
@@ -33,7 +55,16 @@ string SocketIO:: read() {
 * @param text
 */
 void SocketIO:: write(string text) {
-    send(this->clientId, text.c_str(), text.length(), 0);
+    char data_addr[4096] = {0};
+    text.copy(data_addr, text.length(), 0);
+    int data_len = (int) strlen(data_addr);
+    long sent_bytes = send(this->clientId, data_addr, data_len, 0);
+    if(sent_bytes < 0){
+        cout << "ERROR" << endl;
+        exit(1);
+    }
+
+   // send(this->clientId, text.c_str(), text.length(), 0);
 }
 
 SocketIO::SocketIO(int id) {
