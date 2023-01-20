@@ -9,7 +9,7 @@ void UploadDataCommand::CatalogTrainMaker(Info* info, const string& toSplitStrin
     char arr[toSplitString.size()];
     toSplitString.copy(arr, toSplitString.length(), 0);
     for (int i = 0; i < toSplitString.size(); ++i) {
-        if(arr[i] != '#'){
+        if(arr[i] != '\n' && arr[i] != '\r'){
             substring += arr[i];
         }else{
             TrainCatalog *newCatalog = info->database->setTrainCatalog(substring);
@@ -27,7 +27,7 @@ void UploadDataCommand::CatalogTestMaker(Info* info, const string& toSplitString
     char arr[toSplitString.size()];
     toSplitString.copy(arr, toSplitString.length(), 0);
     for (int i = 0; i < toSplitString.size(); ++i) {
-        if(arr[i] != '#'){
+        if(arr[i] != '\n' && arr[i] != '\r'){
             substring += arr[i];
         }else{
             TestCatalog *newCatalog = info->database->setTestCatalog(substring);
@@ -40,6 +40,19 @@ void UploadDataCommand::CatalogTestMaker(Info* info, const string& toSplitString
 }
 
 void UploadDataCommand::execute(Info *info) {
+    info->isUploaded = false;
+    if(!info->database->m_Train.empty()){
+        for (unsigned long i = info->database->m_Train.size() - 1; i > 0; --i) {
+            info->database->m_Train.at(i).getVector().pop_back();
+            info->database->m_Train.pop_back();
+        }
+    }
+    if(!info->database->m_Test.empty()){
+        for (unsigned long i = info->database->m_Test.size() - 1; i > 0; --i) {
+            info->database->m_Test.at(i).getVector().pop_back();
+            info->database->m_Test.pop_back();
+        }
+    }
     this->dio->write("Please upload your local train CSV file.\n");
     this->dio->write("$$$");
 
@@ -49,6 +62,7 @@ void UploadDataCommand::execute(Info *info) {
         //read CSV train data from the client
         // !!!!!! change according to edge cases of checking validation by implementing a function inside defaultIO
         csvTrainData = this->dio->read();
+        csvTrainData += '\n';
         CatalogTrainMaker(info, csvTrainData);
         //check validation of the input and create a new TrainCatalog based on the information passed
 
@@ -67,6 +81,7 @@ void UploadDataCommand::execute(Info *info) {
     this->dio->write("$$$");
 //    while(csvTestData != "$$$"){
     csvTestData = this->dio->read();
+    csvTestData += '\n';
     CatalogTestMaker(info, csvTestData);
        // TestCatalog *newCatalog = info->database->setTestCatalog(csvTestData);
 //        if(newCatalog != nullptr){

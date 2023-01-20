@@ -8,12 +8,16 @@ void DisplayResultsCommand::execute(Info *info) {
     if (!info->isUploaded){
         dio->write("please upload data\n");
         this->dio->write("$$$");
-        return;
+        if(this->dio->read() == "#####"){
+            return;
+        }
     }
     if(!info->isClassified){
         dio->write("please classify the data\n");
         this->dio->write("$$$");
-        return;
+        if(this->dio->read() == "#####"){
+            return;
+        }
     }
 
     unsigned long testSize = info->database->getMTest()->size();
@@ -24,4 +28,7 @@ void DisplayResultsCommand::execute(Info *info) {
     }
     dio->write("Done.\n");
     this->dio->write("$$$");
+    if(this->dio->read() == "#####"){
+        return;
+    }
 }

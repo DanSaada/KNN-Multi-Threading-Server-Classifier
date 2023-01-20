@@ -8,14 +8,19 @@ void ClassifyDataCommand::execute(Info *info) {
     if (!info->isUploaded){
         dio->write("please upload data\n");
         dio->write("$$$");
-        return;
+        if(this->dio->read() == "#####"){
+            return;
+        }
     }
     unsigned long testSize = info->database->getMTest()->size();
     auto *testVectors = info->database->getMTest();
     for (unsigned long i = 0; i < testSize; ++i) {
         testVectors->at(i).setName(info->database->findKNN(testVectors->at(i).getVector()));
     }
-    dio->write("classifying data complete\n");
+    this->dio->write("classifying data complete\n");
     this->dio->write("$$$");
-    info->isClassified = true;
+    if(this->dio->read() == "#####"){
+        info->isClassified = true;
+        return;
+    }
 }

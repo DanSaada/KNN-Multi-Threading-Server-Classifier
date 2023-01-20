@@ -15,7 +15,9 @@ void SettingsCommand::execute(Info *info) {
     bool correctDis = true;
     bool correctK = true;
     str = this->dio->read();
+    //str += '\n';
     if(str.length() == 0){
+        this->dio->write("$$$");
         return;
     } else{
         while(str[i]!=' ' && str[i]!='\0'){
@@ -42,6 +44,7 @@ void SettingsCommand::execute(Info *info) {
         }
         this->dio->write("$$$");
         if(correctK && correctDis){
+            //changing the distance and k
             info->database->setK(stoi(newK));
             info->database->setMDistanceString(newDis);
             info->database->setMDistance(newDis);

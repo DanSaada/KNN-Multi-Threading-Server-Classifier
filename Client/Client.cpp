@@ -98,6 +98,7 @@ void Client::communicate() {
         if(isPositiveInteger(str)){
             this->dio->write(str + "$$$");
             if(stoi(str) == 1){
+                ///////////////////add case to invalid input!!!!
                 //print "please upload train massage"
                 cout << this->dio->read();
                 //get the path from the user
@@ -108,22 +109,30 @@ void Client::communicate() {
                 //get the path from the user
                 getline(cin, str);
                 uploadData(str);
+                //upload complete
                 cout << this->dio->read();
+                this->dio->write("$$$");
             }
             else if(stoi(str) == 2){
+                //current k and distance metric
                 cout << this->dio->read();
+                //press enter or new k and distance metric
                 getline(cin, str);
                 this->dio->write(str + "$$$");
                 invalidOption = this->dio->read();
-                if(!invalidOption.empty()){
+                this->dio->write("$$$");
+                if(!invalidOption.empty()) {
                     cout << invalidOption;
                 }
             }
             else if(stoi(str) == 3){
-                this->dio->read();
+                cout << this->dio->read();
+                //creating an explicit delay
+                this->dio->write("#####$$$");
             }
             else if(stoi(str) == 4){
-                this->dio->read();
+                cout << this->dio->read();
+                this->dio->write("#####$$$");
             }
             else if(stoi(str) == 8){
                close(getSocket());
@@ -186,6 +195,9 @@ bool Client::uploadData(string route) {
     }
     string line;
     while (getline(file, line)) {
+        if(line.at(line.size() - 1) != '\r'){
+            line+='\r';
+        }
         this->dio->write(line);
     }
     file.close();

@@ -9,8 +9,8 @@
 
 Database::Database(int k, const string& dis) {
     setK(k);
-    setMDistanceString(dis);
     setMDistance(dis);
+    setMDistanceString(dis);
 }
 
 /**
@@ -166,7 +166,6 @@ TestCatalog *Database::setTestCatalog(string str) {
     //making a flag to the end of the string.
     str += '\0';
     string substring;
-    string name;
     //iterating over the string.
     for (char x: str) {
         if (x == ',') {
@@ -177,27 +176,25 @@ TestCatalog *Database::setTestCatalog(string str) {
             newVector.push_back(stod(substring));
             //nullifies the substring and the flag.
             substring = "";
-        } else if (x == '\0') {
-            name = substring;
         } else {
             substring += x;
         }
     }
-    if (!m_Train.empty()) {
-        if (m_Train.at(0).getVector().size() != newVector.size()) {
+    if (!m_Test.empty()) {
+        if (m_Test.at(0).getVector().size() != newVector.size()) {
             return nullptr;
         }
     }
-    auto *newCatalog = new TestCatalog(name, newVector);
+    auto *newCatalog = new TestCatalog("", newVector);
     return newCatalog;
 }
 
-void Database::setMTest(string test) {
-    TestCatalog *newCatalog = setTestCatalog(test);
-    if(newCatalog != nullptr){
-        this->m_Test.push_back(*newCatalog);
-    }
-}
+//void Database::setMTest(string test) {
+//    TestCatalog *newCatalog = setTestCatalog(test);
+//    if(newCatalog != nullptr){
+//        this->m_Test.push_back(*newCatalog);
+//    }
+//}
 
 /**
  * This function finds the k's nearest neighbors using the select algorithm.

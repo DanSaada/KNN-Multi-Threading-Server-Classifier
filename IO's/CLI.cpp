@@ -164,6 +164,7 @@ void CLI::start() {
     int userInput;
 
     do {
+        input = "";
         this->dio->write("Welcome to the KNN Classifier Server. Please choose an option:\n");
         int size = this->commands.size();
 
