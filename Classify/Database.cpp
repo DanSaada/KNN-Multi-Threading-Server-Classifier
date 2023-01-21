@@ -165,7 +165,6 @@ TestCatalog *Database::setTestCatalog(string str) {
     vector<double> newVector;
     //making a flag to the end of the string.
     str += '\0';
-    cout << str << endl;
     string substring;
     //iterating over the string.
     for (char x: str) {

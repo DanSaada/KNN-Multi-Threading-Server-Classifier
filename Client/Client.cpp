@@ -147,12 +147,14 @@ void Client::communicate() {
             }
             else if(stoi(str) == 5) {
                 string path;
-                getline(cin, path);
                 string data = this->dio->read();
-                this->dio->write("#####$$$");
                 if(data == "please upload data\n" || data == "please classify the data\n") {
+                    cout << data;
+                    this->dio->write("#####$$$");
                     continue;
                 }
+                this->dio->write("#####$$$");
+                getline(cin, path);
                 thread t(&downloadData, path, data);
                 t.detach();
 //                downloadData(path, data);
@@ -160,10 +162,12 @@ void Client::communicate() {
                close(getSocket());
                break;
             }else{
+                cout << "invalid input\n";
                 //in case the user choose a number that doesn't appear in the menu
                 this->dio->write("#$$$");
             }
         }else{
+            cout << "invalid input\n";
             //in case the user choose a character that isn't a number
             this->dio->write("#$$$");
         }
