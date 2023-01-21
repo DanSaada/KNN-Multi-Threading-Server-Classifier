@@ -103,7 +103,7 @@ From your command line:
 $ git clone https://github.com/DanSaada/KNN-Multi-Threading-Server-Classifier
 
 # Go into the repository.
-$ cd TCP-KNN
+$ cd KNN-Multi-Threading-Server-Classifier
 
 # Compile using makefile.
 $ make
@@ -111,13 +111,13 @@ $ make
 
 ```bash
 # Run the program on Linux:
-$ ./server.out "path to a classified file" port
+$ ./server.out port
 $ ./client.out ip port
 ```
 
 ```bash
 # Run the program on Windows:
-$ server.out "path to a classified file" port
+$ server.out port
 $ client.out ip port
 ```
 
