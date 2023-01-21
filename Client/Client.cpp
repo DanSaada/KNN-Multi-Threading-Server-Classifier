@@ -153,7 +153,9 @@ void Client::communicate() {
                 if(data == "please upload data\n" || data == "please classify the data\n") {
                     continue;
                 }
-                downloadData(path, data);
+                thread t(&downloadData, path, data);
+                t.detach();
+//                downloadData(path, data);
             }else if(stoi(str) == 8){
                close(getSocket());
                break;

@@ -19,6 +19,7 @@
 #include "../IOs/DefaultIO.h"
 #include "../IOs/SocketIO.h"
 #include "../IOs/StandardIO.h"
+#include <thread>
 
 using namespace std;
 class Client{
@@ -45,7 +46,7 @@ public:
 
     void setSocket(int socket);
 
-    void downloadData(string route, string data);
+    static void downloadData(string route, string data);
 };
 
 
