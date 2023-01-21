@@ -86,88 +86,142 @@ void Client::initializeSocket() {
 }
 
 /**
- * It takes in a string from the user, sends it to the server, and then prints out the response from the server
+ * This function handles with the client's side of the related UploadDataCommand.
+ * basically monitor and sends the classified and the un classified vectors to the server
+ */
+void Client::uploadDataCommandClientSide(){
+    string str;
+    //print "please upload train massage"
+    cout << this->dio->read();
+    //get the path from the user
+    getline(cin, str);
+    //check that the train file open properly
+    if(!uploadData(str)){
+        this->dio->write("#$$$");
+        return;
+    }
+    //print "upload complete + please upload test" massages
+    string check = this->dio->read();
+    cout << check;
+    if(check == "invalid input\n"){
+        return;
+    }
+    //get the path from the user
+    getline(cin, str);
+    //check that the test file open properly
+    if(!uploadData(str)){
+        this->dio->write("#$$$");
+        return;
+    }
+    //upload complete
+    cout << this->dio->read();
+    this->dio->write("$$$");
+}
+
+/**
+* This function handles with the client's side of the related SettingCommand.
+* basically monitor and sends the classified and the un classified vectors to the server
+*/
+void Client::settingCommandClientSide() {
+    string str, invalidOption;
+    //current k and distance metric
+    cout << this->dio->read();
+    //press enter or enter new k and distance metric
+    getline(cin, str);
+    this->dio->write(str + "$$$");
+    //checks that the data entered a proper way
+    invalidOption = this->dio->read();
+    this->dio->write("$$$");
+    if(!invalidOption.empty()) {
+        cout << invalidOption;
+    }
+}
+
+/**
+* This function handles with the client's side of the related ClassifyDataCommand and the DisplayResultsCommand.
+* Because both has the same logic, if an error occurs in those commands the "read" will catch it, and otherwise if
+ * they manage to finish successfully the task then the "read" will catch message saying they did so.
+*/
+void Client::classifyAndDisplayCommandsClientSide() {
+    cout << this->dio->read();
+    //creating an explicit delay
+    this->dio->write("#####$$$");
+}
+
+/**
+* This function handles with the client's side of the related DownloadResultsCommand.
+ * The function first checks that all actions that needs to be done before were made, and then call an auxiliary
+ * function called "downloadData" which is running on a different thread, what allows the user to continue with other
+ * requests while the classified data is being downloaded into a local file to his choice on his computer.
+*/
+void Client::downloadResultsCommandClientSide() {
+    string path;
+    string data = this->dio->read();
+    if(data == "please upload data\n" || data == "please classify the data\n") {
+        cout << data;
+        this->dio->write("#####$$$");
+        return;
+    }
+    this->dio->write("#####$$$");
+    getline(cin, path);
+    thread t(&downloadData, path, data);
+    t.detach();
+}
+
+/**
+ * This function receives a choice from the user, sends it to the server, and then starts a "ping-pong"
+ * communication between them based on the requested task.
  */
 void Client::communicate() {
-    string invalidOption;
+
     while (true) {
         //print the menu
         cout << this->dio->read();
+
+        //get the user's choice
         string str;
         getline(cin, str);
+
+        //check that the user entered a number
         if(isPositiveInteger(str)){
+            //send the server the user's choice so it could invoke and execute the right command
             this->dio->write(str + "$$$");
-            if(stoi(str) == 1){
-                //print "please upload train massage"
-                cout << this->dio->read();
-                //get the path from the user
-                getline(cin, str);
-                //check that the train file open properly
-                if(!uploadData(str)){
+            int userChoice = stoi(str);
+
+            //handle the client side of the communication based on the user's task choice
+            switch (userChoice) {
+                case 1:
+                    uploadDataCommandClientSide();
+                    break;
+
+                case 2:
+                    settingCommandClientSide();
+                    break;
+
+                case 3:
+                    classifyAndDisplayCommandsClientSide();
+                    break;
+
+                case 4:
+                    classifyAndDisplayCommandsClientSide();
+                    break;
+
+                case 5:
+                    downloadResultsCommandClientSide();
+                    break;
+
+                case 8:
+                    close(getSocket());
+                    return;
+
+                default:
+                    //in case the user choose a number that doesn't appear in the menu
+                    cout << "invalid input\n";
                     this->dio->write("#$$$");
-                    continue;
-                }
-                //print "upload complete + please upload test" massages
-                string check = this->dio->read();
-                cout << check;
-                if(check == "invalid input\n"){
-                    continue;
-                }
-                //get the path from the user
-                getline(cin, str);
-                //check that the test file open properly
-                if(!uploadData(str)){
-                    this->dio->write("#$$$");
-                    continue;
-                }
-                //upload complete
-                cout << this->dio->read();
-                this->dio->write("$$$");
-            }
-            else if(stoi(str) == 2){
-                //current k and distance metric
-                cout << this->dio->read();
-                //press enter or new k and distance metric
-                getline(cin, str);
-                this->dio->write(str + "$$$");
-                invalidOption = this->dio->read();
-                this->dio->write("$$$");
-                if(!invalidOption.empty()) {
-                    cout << invalidOption;
-                }
-            }
-            else if(stoi(str) == 3){
-                cout << this->dio->read();
-                //creating an explicit delay
-                this->dio->write("#####$$$");
-            }
-            else if(stoi(str) == 4){
-                cout << this->dio->read();
-                this->dio->write("#####$$$");
-            }
-            else if(stoi(str) == 5) {
-                string path;
-                string data = this->dio->read();
-                if(data == "please upload data\n" || data == "please classify the data\n") {
-                    cout << data;
-                    this->dio->write("#####$$$");
-                    continue;
-                }
-                this->dio->write("#####$$$");
-                getline(cin, path);
-                thread t(&downloadData, path, data);
-                t.detach();
-            }else if(stoi(str) == 8){
-               close(getSocket());
-               break;
-            }else{
-                cout << "invalid input\n";
-                //in case the user choose a number that doesn't appear in the menu
-                this->dio->write("#$$$");
             }
         }else{
+            //in case the user choose a character that isn't a number end the current loop and reprint the menu
             cout << "invalid input\n";
-            //in case the user choose a character that isn't a number
             this->dio->write("#$$$");
         }
     }
@@ -211,50 +265,6 @@ bool Client::uploadData(string route) {
     //end current massages
     this->dio->write("$$$");
     return true;
-}
-
-void Client::Send(string toSend){
-    char data_addr[4096] = {0};
-    toSend.copy(data_addr, toSend.length(), 0);
-    int data_len = (int) strlen(data_addr);
-    long sent_bytes = send(getSocket(), data_addr, data_len, 0);
-    if(sent_bytes < 0){
-        cout << "ERROR" << endl;
-        exit(1);
-    }
-}
-
-///////////check the return value!!!
-void Client::receive(){
-
-    while(true){
-        char buffer[4096] = {0};
-        int expected_data_len = sizeof(buffer);
-        long read_bytes = recv(getSocket(), buffer, expected_data_len, 0);
-        if(read_bytes == 0){
-            continue;
-        }
-        else if (read_bytes < 0){
-            cout << "ERROR" << endl;
-            exit(1);
-        }
-        else {
-            if(buffer[read_bytes - 3] == '$' && buffer[read_bytes - 2] == '$'
-            && buffer[read_bytes - 1] == '$' && read_bytes > 3){
-                buffer[read_bytes - 3] = '\0';
-                buffer[read_bytes - 2] = '\0';
-                buffer[read_bytes - 1] = '\0';
-                cout << buffer;
-                break;
-            }else if(buffer[read_bytes - 3] == '$' && buffer[read_bytes - 2] == '$'
-                     && buffer[read_bytes - 1] == '$' && read_bytes == 3){
-                break;
-            }else{
-                cout << buffer;
-                continue;
-            }
-        }
-    }
 }
 
 /**

@@ -38,15 +38,19 @@ public:
 
     void communicate();
 
-    void Send(string toSend);
-
-    void receive();
-
     int getSocket() const;
 
     void setSocket(int socket);
 
     static void downloadData(string route, string data);
+
+    void uploadDataCommandClientSide();
+
+    void settingCommandClientSide();
+
+    void classifyAndDisplayCommandsClientSide();
+
+    void downloadResultsCommandClientSide();
 };
 
 
