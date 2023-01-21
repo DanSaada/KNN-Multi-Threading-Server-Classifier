@@ -42,8 +42,8 @@ In order to disconnect the dependency between the command and the input/output s
 
 <img width="465" alt="image" src="https://user-images.githubusercontent.com/112869076/213036773-1993684a-f380-4e6c-84d4-69651b847df2.png">
 
-Because we considered each connection between the server and the different clients as a separate task, we used task parallelism by multi threading the those connections, that is, at a given moment, our server can communicate with several different clients at the same time, which means each client-server connection is handled by a separate thread.
-Another place where this ability is manifested is in option 5 in the menu, that is, when downloading the classifications of the vectors as a list into a file on the computer, the user can continue asking for other command's execution requests while the file is being downloaded to his computer.
+Because we considered each connection between the server and the different clients as a separate task, we used task parallelism by multi threading those connections. That is, at a given moment, our server can communicate with several different clients at the same time, which means each client-server connection is handled by a separate thread.
+Another place where this ability is manifested is in option 5 in the menu. When downloading the classifications of the vectors as a list into a file on the computer, the user can continue asking for other command's execution requests while the file is being downloaded to his computer.
 
 
 ## Course of the program
