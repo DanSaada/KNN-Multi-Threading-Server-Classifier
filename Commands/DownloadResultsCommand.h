@@ -12,6 +12,7 @@ public:
     explicit DownloadResultsCommand(DefaultIO* defaultIo);
 
     void execute(Info* info) override;
+
 };
 
 

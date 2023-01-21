@@ -44,6 +44,8 @@ public:
     int getSocket() const;
 
     void setSocket(int socket);
+
+    void downloadData(string route, string data);
 };
 
 

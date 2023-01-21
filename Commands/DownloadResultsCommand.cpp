@@ -19,19 +19,29 @@ void DownloadResultsCommand::execute(Info *info) {
     //check that the user already uploaded the classified files
     if (!info->isUploaded){
         dio->write("please upload data\n");
-        return;
+        this->dio->write("$$$");
+        if(this->dio->read() == "#####"){
+            return;
+        }
     }
     //check that the user already classified the data
     if(!info->isClassified){
         dio->write("please classify the data\n");
-        return;
+        this->dio->write("$$$");
+        if(this->dio->read() == "#####"){
+            return;
+        }
     }
 
     //send a numbered list of the vectors classification
     unsigned long testSize = info->database->getMTest()->size();
     string output;
     for (unsigned long i = 0; i < testSize; ++i) {
-        output = to_string(i) + "\t" + info->database->getMTest()->at(i).getName() + "\n";
+        output = to_string(i+1) + "\t" + info->database->getMTest()->at(i).getName() + "\n";
         dio->write(output);
+    }
+    this->dio->write("$$$");
+    if(this->dio->read() == "#####"){
+        return;
     }
 }

@@ -146,7 +146,14 @@ void Client::communicate() {
                 this->dio->write("#####$$$");
             }
             else if(stoi(str) == 5) {
-
+                string path;
+                getline(cin, path);
+                string data = this->dio->read();
+                this->dio->write("#####$$$");
+                if(data == "please upload data\n" || data == "please classify the data\n") {
+                    continue;
+                }
+                downloadData(path, data);
             }else if(stoi(str) == 8){
                close(getSocket());
                break;
@@ -156,44 +163,21 @@ void Client::communicate() {
     }
 }
 
-
-        //set a buffer to hold the incoming data
-//        char data_addr[4096] = {0};
-//        string str;
-//        getline(cin, str);
-//        str.copy(data_addr, str.length(), 0);
-//        int data_len = (int) strlen(data_addr);
-//        long sent_bytes = send(getSocket(), data_addr, data_len, 0);
-//        if(str == "-1"){
-//            close(getSocket());
-//            break;
-//        }
-//        if(sent_bytes < 0){
-//            cout << "ERROR" << endl;
-//            exit(1);
-//        }
-//
-//
-//
-//
-//        char buffer[4096] = {0};
-//        int expected_data_len = sizeof(buffer);
-//        long read_bytes = recv(getSocket(), buffer, expected_data_len, 0);
-//        if(read_bytes == 0){
-//            continue;
-//        }
-//        else if (read_bytes < 0){
-//            cout << "ERROR" << endl;
-//            exit(1);
-//        }
-//        else {
-//            cout << buffer << endl;
-//            continue;
-//        }
-//        close(getSocket());
-//        break;
-//    }
-
+/**
+ * This function opens a local file in the users computer, and write to the file line by line the result
+ * classification vectors.
+ * @param route
+ */
+void Client::downloadData(string route, string data) {
+    ofstream outFile;
+    outFile.open(route);
+    if (!outFile) {
+        cout << "invalid input\n";
+        return;
+    }
+    outFile << data;
+    outFile.close();
+}
 
 /**
  * This function opens the file, reads the file line by line, and then calls the
