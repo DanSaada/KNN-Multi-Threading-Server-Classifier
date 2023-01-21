@@ -35,6 +35,8 @@ We used encapsulation for the distance classes and additionally made distance ab
 Thanks to this, our KNN calculation function that received an object of type Distance could use any of the distance functions independently of them.
 In addition, since in the future we may want to change the internal implementation of the vector classification or add additional attributes to it, we implemented the relationship between the client and the server in such a way that does not create a dependency between the implementation of the classification algorithm and the communication process between them.
 
+While planning the task and out of an ambition to improve the running time, we noticed that we don't need to sort the entire database, but it is enough for us to find the K members whose distance is the smallest from the newly inserted vector, and therefore we chose to use the Select algorithm which has an average time complexity of O(n).
+
 We used the Command design pattern, where each command in our software has its own class. The command class can define everything that is relevant to all our system commands, and in particular a command to execute abstractly activation.
 In order to disconnect the dependency between the command and the input/output source, (After all, we don't necessarily want to print to the screen standard output or read from the keyboard standard input) we defined the abstract type DefaultIO, whose successors will have to implement the read and write methods, that can proccess the source in various implementations. For Example if we want the standard input-output then we will enter StandardIO, where as if we want to create communication in a socket type then we will use SocketIO.
 
@@ -43,11 +45,10 @@ In order to disconnect the dependency between the command and the input/output s
 We used multi threading, that is, at a given moment, our server can communicate with several different clients at the same time.
 Another place where this ability is manifested is in option 5 in the menu, that is, when downloading the classifications of the vectors as a list into a file on the computer, the user can continue asking for other command's execution requests while the file is being downloaded to his computer.
 
-While planning the task and out of an ambition to improve the running time, we noticed that we don't need to sort the entire database, but it is enough for us to find the K members whose distance is the smallest from the newly inserted vector, and therefore we chose to use the Select algorithm which has an average time complexity of O(n).
 
 ## Course of the program
 
-First, the server is being initialize, then clients can conect to the server (dependes on how much clients the server can handle, in our program can handle 5 clients by default).
+First, the server is being initialize, then clients can connect to the server (dependes on how much clients the server can handle, in our program can handle 5 clients by default).
 
 Each client is being presented with a menu with various commands which includes:
 1. Upload an unclassified csv data file
