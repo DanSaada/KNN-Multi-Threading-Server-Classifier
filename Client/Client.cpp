@@ -159,9 +159,14 @@ void Client::communicate() {
             }else if(stoi(str) == 8){
                close(getSocket());
                break;
+            }else{
+                //in case the user choose a number that doesn't appear in the menu
+                this->dio->write("#$$$");
             }
+        }else{
+            //in case the user choose a character that isn't a number
+            this->dio->write("#$$$");
         }
-        //this->dio->write(str + "$$$");
     }
 }
 
