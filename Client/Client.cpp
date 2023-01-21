@@ -157,7 +157,6 @@ void Client::communicate() {
                 getline(cin, path);
                 thread t(&downloadData, path, data);
                 t.detach();
-//                downloadData(path, data);
             }else if(stoi(str) == 8){
                close(getSocket());
                break;
