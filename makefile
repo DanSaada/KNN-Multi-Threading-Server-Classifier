@@ -1,65 +1,29 @@
-all: server client
+CC=g++
+CFLAGS=-std=c++11 -Wall -pthread
 
-SERVER_SRCS = $(wildcard Commands/*.cpp Distances/*.cpp Server/*.cpp IOs/*.cpp Classify/*.cpp)
-SERVER_OBJS = $(SERVER_SRCS:.cpp=.o)
-CLIENT_SRCS = $(wildcard Client/*.cpp IOs/*.cpp)
-CLIENT_OBJS = $(CLIENT_SRCS:.cpp=.o)
+KNN_SERVER_SRCS=Distances/Canberra.cpp Classify/TrainCatalog.cpp Distances/Chebyshev.cpp Classify/Database.cpp Distances/Distance.cpp Distances/Euclidean.cpp Server/Server.cpp Distances/Manhattan.cpp Distances/Minkowski.cpp Classify/ClassificationLogic.cpp Commands/Command.cpp IOs/DefaultIO.cpp Commands/DisplayResultsCommand.cpp Commands/DownloadResultsCommand.cpp Commands/ExitCommand.cpp Commands/ClassifyDataCommand.cpp Commands/SettingsCommand.cpp Commands/UploadDataCommand.cpp IOs/StandardIO.cpp IOs/SocketIO.cpp Classify/TestCatalog.cpp Classify/Catalog.cpp IOs/CLI.cpp Server/ClientHandler.cpp
 
-$(SERVER_OBJS): %.o : %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+KNN_SERVER_OBJS=$(KNN_SERVER_SRCS:.cpp=.o)
 
-$(CLIENT_OBJS): %.o : %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+KNN_SERVER_OUT=server.out
 
-server: $(SERVER_OBJS)
-	$(CC) $(CFLAGS) -o $(SERVER_OUT) $(SERVER_OBJS)
+CLIENT_SRCS=Client/Client.cpp IOs/DefaultIO.cpp IOs/StandardIO.cpp IOs/SocketIO.cpp
+
+CLIENT_OBJS=$(CLIENT_SRCS:.cpp=.o)
+
+CLIENT_OUT=client.out
+
+all: knn_server client
+
+knn_server: $(KNN_SERVER_OBJS)
+	$(CC) $(CFLAGS) -o $(KNN_SERVER_OUT) $(KNN_SERVER_OBJS)
 
 client: $(CLIENT_OBJS)
 	$(CC) $(CFLAGS) -o $(CLIENT_OUT) $(CLIENT_OBJS)
 
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(SERVER_OBJS) $(CLIENT_OBJS) $(SERVER_OUT) $(CLIENT_OUT)
-
-
-#server: %.o : Commands/%.cpp Commands/%.h Distances/%.cpp Distances/%.h Server/%.cpp Server/%.h IOs/%.cpp IOs/%.h Classify/%.cpp Classify/%.h
-#	g++ -std=c++11 -Wall -o server.out
-#
-#client: Client.o
-#	g++ -std=c++11 -Wall -o client.out Client.o
-#
-#Client.o: Client.cpp
-#	g++ -std=c++11 -Wall -c Client.cpp
-#
-#Server.o: Server/Server.cpp
-#	g++ -std=c++11 -Wall -c Server.cpp
-#
-#classificationLogic.o: Classify/ClassificationLogic.cpp
-#	g++ -std=c++11 -Wall -c classificationLogic.cpp
-#
-#Distance.o: Distances/Distance.cpp
-#	g++ -std=c++11 -Wall -c Distance.cpp
-#
-#Canberra.o: Distances/Canberra.cpp
-#	g++ -std=c++11 -Wall -c Canberra.cpp
-#
-#Catalog.o: Classify/TrainCatalog.cpp
-#	g++ -std=c++11 -Wall -c Catalog.cpp
-#
-#Chebyshev.o: Distances/Chebyshev.cpp
-#	g++ -std=c++11 -Wall -c Chebyshev.cpp
-#
-#Database.o: Classify/Database.cpp
-#	g++ -std=c++11 -Wall -c Database.cpp
-#
-#Euclidean.o: Distances/Euclidean.cpp
-#	g++ -std=c++11 -Wall -c Euclidean.cpp
-#
-#Manhattan.o: Distances/Manhattan.cpp
-#	g++ -std=c++11 -Wall -c Manhattan.cpp
-#
-#Minkowski.o: Distances/Minkowski.cpp
-#	g++ -std=c++11 -Wall -c Minkowski.cpp
-#
-#clean:
-#	rm -f *.o server.out client.out
+	rm -f $(KNN_SERVER_OBJS) $(CLIENT_OBJS) $(KNN_SERVER_OUT) $(CLIENT_OUT)
 

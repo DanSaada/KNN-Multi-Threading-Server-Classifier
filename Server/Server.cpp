@@ -153,7 +153,7 @@ void Server::initializeSocket() {
  */
 void Server::tcpSocket() {
     vector<thread *> tVec;
-    bool error = false;
+   // bool error = false;
     while (true) {
         //accept an incoming Client connection
         struct sockaddr_in client_sin;
@@ -161,7 +161,7 @@ void Server::tcpSocket() {
         int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
         if (client_sock < 0) {
             //exit(1); ??????????????????????????????????????
-            error = true;
+            //error = true;
             break;
         }else{
             //////option 1:

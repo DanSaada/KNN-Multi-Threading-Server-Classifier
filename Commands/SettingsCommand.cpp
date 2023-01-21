@@ -36,7 +36,7 @@ void SettingsCommand::execute(Info *info) {
         }
         ++i;
         //check that there is also a distance metric besides the K
-        if(str.length() > i){
+        if((int) str.length() > i){
             //extract the metric distance
             while(str[i]!='\0'){
                 newDis += str[i];

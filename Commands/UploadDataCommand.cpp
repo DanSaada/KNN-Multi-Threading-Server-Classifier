@@ -14,7 +14,8 @@ void UploadDataCommand::CatalogTrainMaker(Info* info, const string& toSplitStrin
     string substring;
     char arr[toSplitString.size()];
     toSplitString.copy(arr, toSplitString.length(), 0);
-    for (int i = 0; i < toSplitString.size(); ++i) {
+    int sizeOfSplitString = (int) toSplitString.size();
+    for (int i = 0; i < sizeOfSplitString; ++i) {
         if(arr[i] != '\n' && arr[i] != '\r'){
             substring += arr[i];
         }else{
@@ -32,7 +33,8 @@ void UploadDataCommand::CatalogTestMaker(Info* info, const string& toSplitString
     string substring;
     char arr[toSplitString.size()];
     toSplitString.copy(arr, toSplitString.length(), 0);
-    for (int i = 0; i < toSplitString.size(); ++i) {
+    int sizeOfSplitString = (int) toSplitString.size();
+    for (int i = 0; i < sizeOfSplitString; ++i) {
         if(arr[i] != '\n' && arr[i] != '\r'){
             substring += arr[i];
         }else{

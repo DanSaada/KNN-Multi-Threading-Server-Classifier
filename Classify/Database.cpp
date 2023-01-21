@@ -218,7 +218,7 @@ string Database::findKNN(vector<double> unclassifiedVector) {
 string Database::classifyVector() {
     // Create an empty map
     map<string, int> count;
-    if(this->m_k > m_Train.size()){
+    if(this->m_k > (int) m_Train.size()){
         this->m_k = (int) this->m_Train.size();
     }
     //iterate over the k's nearest neighbors and update the frequency of each catalog
