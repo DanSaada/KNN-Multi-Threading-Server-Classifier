@@ -19,10 +19,9 @@ private:
     Distance* m_distance;
     string m_distanceString;
     int m_k;
-
-public:
     vector<TrainCatalog> m_Train;
     vector<TestCatalog> m_Test;
+public:
 
     Database(int k, const string& dis);
 
@@ -32,8 +31,6 @@ public:
 
     vector<TestCatalog> *getMTest();
 
-    void setMTest(string test);
-
     TestCatalog *setTestCatalog(string str);
 
     vector<TrainCatalog> *getMTrain();
@@ -41,10 +38,6 @@ public:
     TrainCatalog *setTrainCatalog(string str);
 
     static bool checkIfNum(string substring);
-
-    //void setData();
-
-    void add(string newName, vector<double> unclassifiedVector);
 
     string findKNN(vector<double> unclassifiedVector);
 

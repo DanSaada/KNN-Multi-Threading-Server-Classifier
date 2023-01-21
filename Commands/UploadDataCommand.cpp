@@ -4,12 +4,21 @@
 
 #include "UploadDataCommand.h"
 
-//constructor
+/**
+ * Constructor of UploadDataCommand
+ * @param defaultIo Io used
+ */
 UploadDataCommand::UploadDataCommand(DefaultIO *defaultIo) : Command() {
     setDescription("1. upload an unclassified csv data file\n");
     setDio(defaultIo);
 }
 
+/**
+ * It takes a string, splits it into substrings, and then adds each substring to a vector
+ *
+ * @param info a pointer to the Info class, which contains the database and the socket.
+ * @param toSplitString The string to be split.
+ */
 void UploadDataCommand::CatalogTrainMaker(Info *info, const string &toSplitString) {
     string substring;
     char arr[toSplitString.size()];
@@ -21,7 +30,7 @@ void UploadDataCommand::CatalogTrainMaker(Info *info, const string &toSplitStrin
         } else {
             TrainCatalog *newCatalog = info->database->setTrainCatalog(substring);
             if (newCatalog != nullptr) {
-                info->database->m_Train.push_back(*newCatalog);
+                info->database->getMTrain()->push_back(*newCatalog);
             }
             substring = "";
         }
@@ -29,6 +38,12 @@ void UploadDataCommand::CatalogTrainMaker(Info *info, const string &toSplitStrin
 }
 
 
+/**
+ * This function takes a string and splits it into substrings based on the newline character
+ *
+ * @param info a pointer to the Info class, which contains all the information about the server.
+ * @param toSplitString The string to split.
+ */
 void UploadDataCommand::CatalogTestMaker(Info *info, const string &toSplitString) {
     string substring;
     char arr[toSplitString.size()];
@@ -42,10 +57,11 @@ void UploadDataCommand::CatalogTestMaker(Info *info, const string &toSplitString
             if(substring.empty()){
                 break;
             }
+            //adds ',' to last number
             substring += ',';
             TestCatalog *newCatalog = info->database->setTestCatalog(substring);
             if (newCatalog != nullptr) {
-                info->database->m_Test.push_back(*newCatalog);
+                info->database->getMTest()->push_back(*newCatalog);
             }
             substring = "";
         }
@@ -61,17 +77,17 @@ void UploadDataCommand::execute(Info *info) {
     //if the user uploads new files then the old database should be deleted
     info->isUploaded = false;
     //delete the old classified vectors file
-    if (!info->database->m_Train.empty()) {
-        for (unsigned long i = info->database->m_Train.size() - 1; i > 0; --i) {
-            info->database->m_Train.at(i).getVector().pop_back();
-            info->database->m_Train.pop_back();
+    if (!info->database->getMTrain()->empty()) {
+        for (unsigned long i = info->database->getMTrain()->size() - 1; i > 0; --i) {
+            info->database->getMTrain()->at(i).getVector().pop_back();
+            info->database->getMTrain()->pop_back();
         }
     }
     //delete the old unclassified vectors file
-    if (!info->database->m_Test.empty()) {
-        for (unsigned long i = info->database->m_Test.size() - 1; i > 0; --i) {
-            info->database->m_Test.at(i).getVector().pop_back();
-            info->database->m_Test.pop_back();
+    if (!info->database->getMTest()->empty()) {
+        for (unsigned long i = info->database->getMTest()->size() - 1; i > 0; --i) {
+            info->database->getMTest()->at(i).getVector().pop_back();
+            info->database->getMTest()->pop_back();
         }
     }
     this->dio->write("Please upload your local train CSV file.\n");
@@ -91,7 +107,7 @@ void UploadDataCommand::execute(Info *info) {
     CatalogTrainMaker(info, csvTrainData);
 
     //check that the train data isn't empty
-    if(info->database->m_Train.empty()){
+    if(info->database->getMTrain()->empty()){
         this->dio->write("invalid input\n");
         this->dio->write("$$$");
         return;

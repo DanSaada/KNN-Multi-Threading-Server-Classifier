@@ -4,23 +4,12 @@
 
 #include "TestCatalog.h"
 
+/**
+ * constructor of TestCatalog
+ * @param name of the catalog
+ * @param vector vector of numbers
+ */
 TestCatalog::TestCatalog(string name, vector<double> vector) {
     setName(name);
     setVector(vector);
-}
-
-void TestCatalog::setName(string name) {
-    this->m_name = name;
-}
-
-void TestCatalog::setVector(vector<double> vector) {
-    this->m_vector = vector;
-}
-
-string TestCatalog::getName() {
-    return this->m_name;
-}
-
-vector<double> TestCatalog::getVector() {
-    return this->m_vector;
 }

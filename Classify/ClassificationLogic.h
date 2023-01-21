@@ -14,11 +14,6 @@
 #include "../Distances/Minkowski.h"
 #include "cstring"
 
-bool checkStr(string str);
-vector<double> createVec();
-//Database *initializeDatabase(int k);
-Distance *chooseDis(const char *disAlg);
-string newVectorClassification(Database *dataBase, Distance *dis, string vec);
 bool isPositiveInteger(const string &s);
 
 #endif //PROJECT_CLASSIFICATIONLOGIC_H

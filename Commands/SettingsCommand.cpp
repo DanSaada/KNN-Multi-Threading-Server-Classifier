@@ -4,7 +4,10 @@
 
 #include "SettingsCommand.h"
 
-//constructor
+/**
+ * Constructor of SettingsCommand
+ * @param defaultIo Io used
+ */
 SettingsCommand::SettingsCommand(DefaultIO* defaultIo): Command(){
     setDescription("2. algorithm settings\n");
     setDio(defaultIo);

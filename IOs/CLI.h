@@ -38,11 +38,6 @@ public:
 
     void printMenu();
 
-    void TEST();
-
-    bool breakBuffer(char *buffer, string* brokeBuffer);
-
-    string getClassifiction(string* brokeBuffer);
 };
 
 

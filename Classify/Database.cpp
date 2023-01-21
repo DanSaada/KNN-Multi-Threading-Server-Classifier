@@ -7,6 +7,11 @@
 #include "../Distances/Chebyshev.h"
 #include "../Distances/Canberra.h"
 
+/**
+ * constructor of dataBase
+ * @param k for select
+ * @param dis distance
+ */
 Database::Database(int k, const string& dis) {
     setK(k);
     setMDistance(dis);
@@ -135,27 +140,6 @@ TrainCatalog *Database::setTrainCatalog(string str) {
 }
 
 /**
- * This function opens the file, reads the file line by line, and then calls the
- * setTrainCatalog function to create a new TrainCatalog object.
- */
-//void Database::setData() {
-//    ifstream file;
-//    file.open(m_file, ios::in);
-//    if (!file) {
-//        cout << "Error: problem with opening file! please check your path.";
-//        exit(1);
-//    }
-//    string line;
-//    while (getline(file, line)) {
-//        TrainCatalog *newCatalog = setTrainCatalog(line);
-//        if (newCatalog != nullptr) {
-//            m_Train.push_back(*newCatalog);
-//        }
-//    }
-//    file.close();
-//}
-
-/**
  * It takes a string, checks if it's a number using an auxiliary function, and if it
  * is, it adds it to a new created vector.
  * @param str the string that we get from the user.
@@ -186,13 +170,6 @@ TestCatalog *Database::setTestCatalog(string str) {
     auto *newCatalog = new TestCatalog("", newVector);
     return newCatalog;
 }
-
-//void Database::setMTest(string test) {
-//    TestCatalog *newCatalog = setTestCatalog(test);
-//    if(newCatalog != nullptr){
-//        this->m_Test.push_back(*newCatalog);
-//    }
-//}
 
 /**
  * This function finds the k's nearest neighbors using the select algorithm.
@@ -311,19 +288,39 @@ void Database::select(int left, int right) {
     }
 }
 
+/**
+ * getter of Distance string
+ * @return string
+ */
 const string &Database::getMDistanceString() const {
     return m_distanceString;
 }
 
+/**
+ * setter of Distance string
+ * @param mDistanceString string
+ */
 void Database::setMDistanceString(const string &mDistanceString) {
     m_distanceString = mDistanceString;
 }
 
+/**
+ * getter of Distance
+ * @return &Distance
+ */
 Distance *Database::getMDistance() const {
     return m_distance;
 }
 
+/**
+ * This function sets the distance metric to be used by the database
+ *
+ * @param distance The distance metric to use.
+ *
+ * @return The distance between two points.
+ */
 void Database::setMDistance(const string& distance) {
+    //if the metric hasn't been changed
     if (getMDistanceString() == distance){
         return;
     }

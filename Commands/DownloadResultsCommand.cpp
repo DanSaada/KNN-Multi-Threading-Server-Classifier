@@ -4,7 +4,10 @@
 
 #include "DownloadResultsCommand.h"
 
-//constructor
+/**
+ * Constructor of DownloadResultsCommand
+ * @param defaultIo Io used
+ */
 DownloadResultsCommand::DownloadResultsCommand(DefaultIO* defaultIo): Command(){
     setDescription("5. download results\n");
     setDio(defaultIo);

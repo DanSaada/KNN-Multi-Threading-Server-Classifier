@@ -4,7 +4,10 @@
 
 #include "ClassifyDataCommand.h"
 
-//constructor
+/**
+ * constructor of ClassifyDataCommand
+ * @param defaultIo the Io used
+ */
  ClassifyDataCommand::ClassifyDataCommand(DefaultIO* defaultIo): Command(){
     setDescription("3. classify data\n");
     setDio(defaultIo);

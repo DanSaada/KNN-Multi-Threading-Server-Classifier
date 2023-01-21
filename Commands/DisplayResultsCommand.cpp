@@ -4,7 +4,10 @@
 
 #include "DisplayResultsCommand.h"
 
-//constructor
+/**
+ * constructor of DisplayResultsCommand
+ * @param defaultIo Io used
+ */
 DisplayResultsCommand::DisplayResultsCommand(DefaultIO* defaultIo): Command(){
     setDescription("4. display results\n");
     setDio(defaultIo);

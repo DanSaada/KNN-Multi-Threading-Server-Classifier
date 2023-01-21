@@ -4,7 +4,10 @@
 
 #include "ClientHandler.h"
 
-//constructor
+/**
+ * Constructor of ClientHandler
+ * @param id the socket of the client
+ */
 ClientHandler::ClientHandler(int id) {
     this->clientID = id;
 }

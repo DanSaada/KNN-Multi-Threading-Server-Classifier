@@ -4,7 +4,10 @@
 
 #include "ExitCommand.h"
 
-//constructor
+/**
+ * Constructor of ExitCommand
+ * @param defaultIo Io used
+ */
 ExitCommand::ExitCommand(DefaultIO* defaultIo): Command(){
     setDescription("8. exit\n");
     setDio(defaultIo);

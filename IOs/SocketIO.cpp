@@ -9,7 +9,6 @@
 * This function read a string from the client using socket.
 * @return a string from the user
 */
-///////check that works!!!!!!!!!!
 string SocketIO:: read() {
     string toRead;
     while(true) {
@@ -39,26 +38,7 @@ string SocketIO:: read() {
         }
 
     }
-
-
-
-
-//    char temp[4096] = {0};
-//    string data;
-//
-//    //read data from the client char by char and create a string from it
-//    while (temp != '\n') {
-//        ///////////add validation check and size of massage!!!!
-//        recv(this->clientId, &temp, sizeof(char), 0);
-//
-//        //end of data
-//        if(temp == '\n'){
-//            break;
-//        }
-//        data += temp;
-//    }
-//    return data;
-};
+}
 
 /**
 * This function write a string to the client using socket.
@@ -74,8 +54,6 @@ void SocketIO:: write(string toSend) {
         cout << "ERROR" << endl;
         exit(1);
     }
-
-   // send(this->clientId, toSend.c_str(), toSend.length(), 0);
 }
 
 //constructor

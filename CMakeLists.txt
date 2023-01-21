@@ -13,8 +13,8 @@ add_executable(KNN-Server
         Commands/Command.h Commands/Command.cpp IOs/DefaultIO.h IOs/DefaultIO.cpp Commands/DisplayResultsCommand.cpp
         Commands/DisplayResultsCommand.h Commands/DownloadResultsCommand.cpp Commands/DownloadResultsCommand.h
         Commands/ExitCommand.cpp Commands/ExitCommand.h Commands/ClassifyDataCommand.h Commands/SettingsCommand.h
-        Commands/UploadDataCommand.cpp Commands/ClassifyDataCommand.cpp Commands/SettingsCommand.cpp IOs/StandardIO.cpp
-        IOs/StandardIO.h IOs/SocketIO.cpp IOs/SocketIO.h Classify/TestCatalog.cpp Classify/TestCatalog.h
+        Commands/UploadDataCommand.cpp Commands/ClassifyDataCommand.cpp Commands/SettingsCommand.cpp
+        IOs/SocketIO.cpp IOs/SocketIO.h Classify/TestCatalog.cpp Classify/TestCatalog.h
         Classify/Catalog.cpp Classify/Catalog.h IOs/CLI.cpp Server/ClientHandler.cpp Server/ClientHandler.h)
 
 add_executable(Client
