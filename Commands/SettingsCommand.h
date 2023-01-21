@@ -6,7 +6,15 @@
 #define KNN_SERVER_SETTINGSCOMMAND_H
 
 #include "Command.h"
-#include "../Classify/ClassificationLogic.h"
+#include "../Classify/Database.h"
+#include "../Distances/Distance.h"
+#include "../Distances/Euclidean.h"
+#include "../Distances/Manhattan.h"
+#include "../Distances/Chebyshev.h"
+#include "../Distances/Canberra.h"
+#include "../Distances/Minkowski.h"
+#include "cstring"
+#include "../Server/Server.h"
 
 class SettingsCommand : public Command{
 private:

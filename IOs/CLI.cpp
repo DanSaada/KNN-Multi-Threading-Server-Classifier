@@ -30,15 +30,15 @@ CLI::~CLI() {
 }
 
 /**
- * getter for the CLI's dio (clientID).
- * @return dio
+ * getter for the CLI's socketIo (clientID).
+ * @return socketIo
  * */
 DefaultIO *CLI::getDio() const {
     return dio;
 }
 
 /**
- * setter for the CLI's dio (clientID).
+ * setter for the CLI's socketIo (clientID).
  * @param dio
  */
 void CLI::setDio(DefaultIO *dio) {

@@ -27,8 +27,8 @@ private:
     int clientSocket;
     int serverPort;
     const char *serverIpAddr;
-    DefaultIO *dio;
-    DefaultIO *printer;
+    DefaultIO *socketIo;
+    DefaultIO *standardIo;
 public:
     explicit Client(const string& port, const char* ipAddr);
 

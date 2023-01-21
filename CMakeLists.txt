@@ -9,7 +9,7 @@ add_executable(KNN-Server
         Distances/Chebyshev.h Distances/Chebyshev.cpp Classify/Database.cpp Classify/Database.h
         Distances/Distance.cpp Distances/Distance.h Distances/Euclidean.cpp Distances/Euclidean.h
         Server/Server.cpp Distances/Manhattan.cpp Distances/Manhattan.h Distances/Minkowski.cpp
-        Distances/Minkowski.h Server/Server.h Classify/ClassificationLogic.cpp Classify/ClassificationLogic.h
+        Distances/Minkowski.h Server/Server.h
         Commands/Command.h Commands/Command.cpp IOs/DefaultIO.h IOs/DefaultIO.cpp Commands/DisplayResultsCommand.cpp
         Commands/DisplayResultsCommand.h Commands/DownloadResultsCommand.cpp Commands/DownloadResultsCommand.h
         Commands/ExitCommand.cpp Commands/ExitCommand.h Commands/ClassifyDataCommand.h Commands/SettingsCommand.h

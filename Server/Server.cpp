@@ -96,6 +96,23 @@ void Server::tcpSocket() {
 }
 
 /**
+ * This function checks if a string is a positive number
+ *
+ * @param str the string to check.
+ *
+ * @return true if the string is a positive number, and false if it is not.
+ */
+bool isPositiveInteger(const string &s) {
+    if (s.empty() || ((!isdigit(s[0])))) {
+        return false;
+    }
+
+    char *p;
+    strtol(s.c_str(), &p, 10);
+    return (*p == 0);
+}
+
+/**
  * The main function creates a Database object, and then get a new inserted vector.
  * It then finds the k nearest neighbors of that vector and classified the inserted vector
  * to be of the same classification as the biggest group inside the k nearest neighbors.

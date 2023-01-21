@@ -5,7 +5,14 @@
 #ifndef PROJECT_SERVER_H
 #define PROJECT_SERVER_H
 
-#include "../Classify/ClassificationLogic.h"
+#include "../Classify/Database.h"
+#include "../Distances/Distance.h"
+#include "../Distances/Euclidean.h"
+#include "../Distances/Manhattan.h"
+#include "../Distances/Chebyshev.h"
+#include "../Distances/Canberra.h"
+#include "../Distances/Minkowski.h"
+#include "cstring"
 #include "iostream"
 #include <sys/socket.h>
 #include <stdio.h>
@@ -32,14 +39,11 @@ public:
 
     explicit Server(const string& port);
 
-    string getClassifiction(string* brokeBuffer);
-
     void tcpSocket();
-
-    bool breakBuffer(char *buffer, string* brokeBuffer);
 
 };
 
+bool isPositiveInteger(const string &s);
 
 
 #endif //PROJECT_SERVER_H

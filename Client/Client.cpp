@@ -29,6 +29,7 @@ bool isPositiveInteger(const string &s) {
  * @param ipAddr The IP address of the server.
  */
 Client::Client(const string& port, const char* ipAddr) {
+    this->standardIo = new StandardIO();
     if(!isPositiveInteger(port) || stoi(port) <= 0 || stoi(port) > 65535 ){
         exit(1);
     }
@@ -36,7 +37,6 @@ Client::Client(const string& port, const char* ipAddr) {
     this->serverIpAddr = ipAddr;
     //default socket
     this->clientSocket = -1;
-    this->printer = new StandardIO();
 }
 
 /**
@@ -65,7 +65,7 @@ void Client::initializeSocket() {
 
     //checking creation succeed
     if (getSocket() < 0){
-        cout << "error creating sock" << endl;
+        this->standardIo->write("error creating sock\n");
         exit(1);
     }
 
@@ -78,10 +78,10 @@ void Client::initializeSocket() {
     sin.sin_addr.s_addr = inet_addr(serverIpAddr);
     sin.sin_port = htons(serverPort);
     if(connect(getSocket(), (struct sockaddr *) &sin, sizeof(sin)) < 0){
-        cout << "error connecting to server" << endl;
+        this->standardIo->write("error connecting to server\n");
         exit(1);
     }
-    this->dio = new SocketIO(getSocket());
+    this->socketIo = new SocketIO(getSocket());
 
 }
 
@@ -92,17 +92,17 @@ void Client::initializeSocket() {
 void Client::uploadDataCommandClientSide(){
     string str;
     //print "please upload train massage"
-    cout << this->dio->read();
+    this->standardIo->write(this->socketIo->read());
     //get the path from the user
     getline(cin, str);
     //check that the train file open properly
     if(!uploadData(str)){
-        this->dio->write("#$$$");
+        this->socketIo->write("#$$$");
         return;
     }
     //print "upload complete + please upload test" massages
-    string check = this->dio->read();
-    cout << check;
+    string check = this->socketIo->read();
+    this->standardIo->write(check);
     if(check == "invalid input\n"){
         return;
     }
@@ -110,12 +110,12 @@ void Client::uploadDataCommandClientSide(){
     getline(cin, str);
     //check that the test file open properly
     if(!uploadData(str)){
-        this->dio->write("#$$$");
+        this->socketIo->write("#$$$");
         return;
     }
     //upload complete
-    cout << this->dio->read();
-    this->dio->write("$$$");
+    this->standardIo->write(this->socketIo->read());
+    this->socketIo->write("$$$");
 }
 
 /**
@@ -125,15 +125,15 @@ void Client::uploadDataCommandClientSide(){
 void Client::settingCommandClientSide() {
     string str, invalidOption;
     //current k and distance metric
-    cout << this->dio->read();
+    this->standardIo->write(this->socketIo->read());
     //press enter or enter new k and distance metric
     getline(cin, str);
-    this->dio->write(str + "$$$");
+    this->socketIo->write(str + "$$$");
     //checks that the data entered a proper way
-    invalidOption = this->dio->read();
-    this->dio->write("$$$");
+    invalidOption = this->socketIo->read();
+    this->socketIo->write("$$$");
     if(!invalidOption.empty()) {
-        cout << invalidOption;
+        this->standardIo->write(invalidOption);
     }
 }
 
@@ -143,9 +143,9 @@ void Client::settingCommandClientSide() {
  * they manage to finish successfully the task then the "read" will catch message saying they did so.
 */
 void Client::classifyAndDisplayCommandsClientSide() {
-    cout << this->dio->read();
+    this->standardIo->write(this->socketIo->read());
     //creating an explicit delay
-    this->dio->write("#####$$$");
+    this->socketIo->write("#####$$$");
 }
 
 /**
@@ -156,13 +156,13 @@ void Client::classifyAndDisplayCommandsClientSide() {
 */
 void Client::downloadResultsCommandClientSide() {
     string path;
-    string data = this->dio->read();
+    string data = this->socketIo->read();
     if(data == "please upload data\n" || data == "please classify the data\n") {
-        cout << data;
-        this->dio->write("#####$$$");
+        this->standardIo->write(data);
+        this->socketIo->write("#####$$$");
         return;
     }
-    this->dio->write("#####$$$");
+    this->socketIo->write("#####$$$");
     getline(cin, path);
     thread t(&downloadData, path, data);
     t.detach();
@@ -176,7 +176,7 @@ void Client::communicate() {
 
     while (true) {
         //print the menu
-        cout << this->dio->read();
+        this->standardIo->write(this->socketIo->read());
 
         //get the user's choice
         string str;
@@ -184,8 +184,8 @@ void Client::communicate() {
 
         //check that the user entered a number
         if(isPositiveInteger(str)){
-            //send the server the user's choice so it could invoke and execute the right command
-            this->dio->write(str + "$$$");
+            //send the server the user's choice, so it could invoke and execute the right command
+            this->socketIo->write(str + "$$$");
             int userChoice = stoi(str);
 
             //handle the client side of the communication based on the user's task choice
@@ -216,13 +216,13 @@ void Client::communicate() {
 
                 default:
                     //in case the user choose a number that doesn't appear in the menu
-                    cout << "invalid input\n";
-                    this->dio->write("#$$$");
+                    this->standardIo->write("invalid input\n");
+                    this->socketIo->write("#$$$");
             }
         }else{
             //in case the user choose a character that isn't a number end the current loop and reprint the menu
-            cout << "invalid input\n";
-            this->dio->write("#$$$");
+            this->standardIo->write("invalid input\n");
+            this->socketIo->write("#$$$");
         }
     }
 }
@@ -251,7 +251,7 @@ bool Client::uploadData(string route) {
     ifstream file;
     file.open(route, ios::in);
     if (!file) {
-        cout << "invalid input\n";
+        this->standardIo->write("invalid input\n");
         return false;
     }
     string line;
@@ -259,11 +259,11 @@ bool Client::uploadData(string route) {
         if(line.at(line.size() - 1) != '\r'){
             line+='\r';
         }
-        this->dio->write(line);
+        this->socketIo->write(line);
     }
     file.close();
     //end current massages
-    this->dio->write("$$$");
+    this->socketIo->write("$$$");
     return true;
 }
 
