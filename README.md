@@ -13,16 +13,17 @@ A project about vector classification using the KNN algorithm and a multi thread
 
 ## Description
 
-In this part we were asked to implement a TCP clientSocket connection between a client and a server, that will run in an endless loop and will run our verctor classification algorithm which was implemented in the previeus part.
+This project implements a TCP Socket connection between a server and multiple clients. The connection between them includes at most reading and transferring files, and sending success and failure messages. The purpose of communication between them is to succeed in classifying different vectors with the help of an algorithm based on a distance metric called the KNN algorithm
+
 
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/112869076/210267297-323a511d-25c7-42ab-9493-fa0617a78b81.png">
 
 
-The classification algorithm is implemented with the KNN algorithm, which is among the most common of machine learning algorithms and is used in a variety of fields.
+The classification algorithm is implemented with the KNN (k nearest neighbors) algorithm, which is among the most common of machine learning algorithms and is used in a variety of fields.
 The algorithm works as follows:
 * Calculation of the distance between the input vector and all classified vectors.
 * Finding K nearest neighbors.
-* Classify the input vector according to the classification of the majority of neighbors. (using the distance metrics we implemented in the previous part of the assignment)
+* Classify the input vector according to the classification of the majority of neighbors (using a provided distance metrics).
 
 <img width="501" alt="image" src="https://user-images.githubusercontent.com/112869076/206932807-d6fa4737-e8ad-40cb-b828-bff296607365.png">
 
@@ -34,26 +35,29 @@ We used encapsulation for the distance classes and additionally made distance ab
 Thanks to this, our KNN calculation function that received an object of type Distance could use any of the distance functions independently of them.
 In addition, since in the future we may want to change the internal implementation of the vector classification or add additional attributes to it, we implemented the relationship between the client and the server in such a way that does not create a dependency between the implementation of the classification algorithm and the communication process between them.
 
-We used a design pattern called Command, where each command in our software has its own class. The command class can define everything that is relevant to all our system commands, and in particular a command to execute abstractly activation.
-In order to disconnect the dependency between the command and the input/output source, (After all, we don't necessarily want to print to the screen standard output or read from the keyboard standard input) we defined the abstract type DefaultIO, whose successors will have to implement the read and write methods in their own way, that can enter during runtime to Command different implementations of DefaultIO. For Example if we want standard input-output then we will enter StandardIO, while if we want communication then we will enter SocketIO.
+We used the Command design pattern, where each command in our software has its own class. The command class can define everything that is relevant to all our system commands, and in particular a command to execute abstractly activation.
+In order to disconnect the dependency between the command and the input/output source, (After all, we don't necessarily want to print to the screen standard output or read from the keyboard standard input) we defined the abstract type DefaultIO, whose successors will have to implement the read and write methods, that can proccess the source in various implementations. For Example if we want the standard input-output then we will enter StandardIO, where as if we want to create communication in a socket type then we will use SocketIO.
 
 <img width="465" alt="image" src="https://user-images.githubusercontent.com/112869076/213036773-1993684a-f380-4e6c-84d4-69651b847df2.png">
 
+We used multi threading, that is, at a given moment, our server can communicate with several different clients at the same time.
+Another place where this ability is manifested is in option 5 in the menu, that is, when downloading the classifications of the vectors as a list into a file on the computer, the user can continue asking for other command's execution requests while the file is being downloaded to his computer.
 
 While planning the task and out of an ambition to improve the running time, we noticed that we don't need to sort the entire database, but it is enough for us to find the K members whose distance is the smallest from the newly inserted vector, and therefore we chose to use the Select algorithm which has an average time complexity of O(n).
 
 ## Course of the program
 
-The client sends the information received from the user to the server. The information is received as follows: "vector distance k"
-* Vector - a new vector to classify.
-* Distance - the distance metric we want to use.
-* K - the number of neighbors to acount in the calculation.
+First, the server is being initialize, then clients can conect to the server (dependes on how much clients the server can handle, in our program can handle 5 clients by default).
 
-The server classified the resulting vector with the KNN algorithm and according to the received metric distance and K (neighbors), and then sends the classification back to the client.
+Each client is being presented with a menu with various commands which includes:
+1. Upload an unclassified csv data file
+2. Algorithm settings
+3. Classifiy data
+4. Display results
+5. Download results
+8. Exit
 
-The client prints the received answer to the screen on a separate line and receives the next input from the user.
-
-The client is connected to the same port during the entire program run, but when the client sends "-1" the client will close the socket, on the other hand, the server will continue to listen to the next client.
+As can be understood from the menu, by pressing 1 the user can upload a "Train" file which will contain several vectors with their classifications, and a "Test" file which will contain only vectors (without their classification), then by pressing 3 the vectors from the "Test" file will be classified in accordance to the vectors in the "Train" file (using the KNN algorithm). The user then can press 4 for to display the results on the screen, or 5 for to download them into a local file to his choice on his computer. In addition, the user can change the algorithm settings by pressing 2, this will allow him to change the K (number of neighbors to acount in the KNN calculation) and the metric distance. Each client can end the communication with the server by pressing 8.
 
 ## Dealing with edge cases
 
