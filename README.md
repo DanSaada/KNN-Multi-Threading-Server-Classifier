@@ -48,7 +48,7 @@ Another place where this ability is manifested is in option 5 in the menu, that 
 
 ## Course of the program
 
-First, the server is being initialize, then clients can connect to the server (dependes on how much clients the server can handle, in our program can handle 5 clients by default).
+First, the server is being initialize, then clients can connect to the server (the number of clients dependes on how much clients the server can handle in hold, in our program can handle 5 clients by default).
 
 Each client is being presented with a menu with various commands which includes:
 1. Upload an unclassified csv data file
@@ -58,7 +58,7 @@ Each client is being presented with a menu with various commands which includes:
 5. Download results
 8. Exit
 
-As can be understood from the menu, by pressing 1 the user can upload a "Train" file which will contain several vectors with their classifications, and a "Test" file which will contain only vectors (without their classification), then by pressing 3 the vectors from the "Test" file will be classified in accordance to the vectors in the "Train" file (using the KNN algorithm). The user then can press 4 for to display the results on the screen, or 5 for to download them into a local file to his choice on his computer. In addition, the user can change the algorithm settings by pressing 2, this will allow him to change the K (number of neighbors to acount in the KNN calculation) and the metric distance. Each client can end the communication with the server by pressing 8.
+As can be understood from the menu, by pressing 1 the user can upload a "Train" file which will contain several vectors with their classifications, and a "Test" file which will contain only vectors (without their classification), then by pressing 3 the vectors from the "Test" file will be classified in accordance to the vectors in the "Train" file (using the KNN algorithm). The user then can press 4 for displaying the results on the screen, or 5 for downloading them into a local file to his choice on his computer. In addition, the user can change the algorithm settings by pressing 2, this will allow him to change the K (number of neighbors to acount in the KNN calculation) and the metric distance. Each client can end the communication with the server by pressing 8.
 
 ## Dealing with edge cases
 
