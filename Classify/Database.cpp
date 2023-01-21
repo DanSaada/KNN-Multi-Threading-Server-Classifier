@@ -165,6 +165,7 @@ TestCatalog *Database::setTestCatalog(string str) {
     vector<double> newVector;
     //making a flag to the end of the string.
     str += '\0';
+    cout << str << endl;
     string substring;
     //iterating over the string.
     for (char x: str) {
@@ -180,10 +181,8 @@ TestCatalog *Database::setTestCatalog(string str) {
             substring += x;
         }
     }
-    if (!m_Test.empty()) {
-        if (m_Test.at(0).getVector().size() != newVector.size()) {
-            return nullptr;
-        }
+    if (m_Train.at(0).getVector().size() != newVector.size()) {
+        return nullptr;
     }
     auto *newCatalog = new TestCatalog("", newVector);
     return newCatalog;

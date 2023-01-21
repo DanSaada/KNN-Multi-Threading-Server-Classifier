@@ -98,17 +98,28 @@ void Client::communicate() {
         if(isPositiveInteger(str)){
             this->dio->write(str + "$$$");
             if(stoi(str) == 1){
-                ///////////////////add case to invalid input!!!!
                 //print "please upload train massage"
                 cout << this->dio->read();
                 //get the path from the user
                 getline(cin, str);
-                uploadData(str);
-                //print "please upload test massage"
-                cout << this->dio->read();
+                //check that the train file open properly
+                if(!uploadData(str)){
+                    this->dio->write("#$$$");
+                    continue;
+                }
+                //print "upload complete + please upload test" massages
+                string check = this->dio->read();
+                cout << check;
+                if(check == "invalid input\n"){
+                    continue;
+                }
                 //get the path from the user
                 getline(cin, str);
-                uploadData(str);
+                //check that the test file open properly
+                if(!uploadData(str)){
+                    this->dio->write("#$$$");
+                    continue;
+                }
                 //upload complete
                 cout << this->dio->read();
                 this->dio->write("$$$");
@@ -134,7 +145,9 @@ void Client::communicate() {
                 cout << this->dio->read();
                 this->dio->write("#####$$$");
             }
-            else if(stoi(str) == 8){
+            else if(stoi(str) == 5) {
+
+            }else if(stoi(str) == 8){
                close(getSocket());
                break;
             }
@@ -190,7 +203,7 @@ bool Client::uploadData(string route) {
     ifstream file;
     file.open(route, ios::in);
     if (!file) {
-        cout << "invalid input";
+        cout << "invalid input\n";
         return false;
     }
     string line;
