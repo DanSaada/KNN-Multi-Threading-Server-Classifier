@@ -23,9 +23,6 @@ void ClassifyDataCommand::execute(Info *info) {
         dio->write("please upload data\n$$$");
         this->dio->read();
         return;
-//        if(this->dio->read() == "#####"){
-//            return;
-//        }
     }
 
     //classify each one of the unclassified vectors that the user sent.
@@ -38,8 +35,4 @@ void ClassifyDataCommand::execute(Info *info) {
     this->dio->write("classifying data complete\n$$$");
     this->dio->read();
     info->isClassified = true;
-//    if(this->dio->read() == "#####"){
-//        info->isClassified = true;
-//        return;
-//    }
 }

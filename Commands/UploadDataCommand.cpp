@@ -122,6 +122,12 @@ void UploadDataCommand::execute(Info *info) {
     csvTestData = this->dio->read();
     //the test file didn't open properly in the client
     if(csvTestData == "#"){
+        if (!info->database->getMTrain()->empty()) {
+            for (long i = (long) info->database->getMTrain()->size() - 1; i >= 0; --i) {
+                info->database->getMTrain()->at(i).getVector().pop_back();
+                info->database->getMTrain()->pop_back();
+            }
+        }
         return;
     }
     csvTestData += '\n';

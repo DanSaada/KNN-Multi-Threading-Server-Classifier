@@ -24,19 +24,12 @@ void DownloadResultsCommand::execute(Info *info) {
         dio->write("please upload data\n$$$");
         this->dio->read();
         return;
-//        if(this->dio->read() == "#####"){
-//            return;
-//        }
     }
     //check that the user already classified the data
     if(!info->isClassified){
         dio->write("please classify the data\n$$$");
         this->dio->read();
         return;
-
-//        if(this->dio->read() == "#####"){
-//            return;
-//        }
     }
 
     //send a numbered list of the vectors classification
@@ -48,7 +41,4 @@ void DownloadResultsCommand::execute(Info *info) {
     }
     this->dio->write("$$$");
     this->dio->read();
-//    if(this->dio->read() == "#####"){
-//        return;
-//    }
 }

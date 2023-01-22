@@ -12,8 +12,12 @@
 #include "arpa/inet.h"
 #include "unistd.h"
 #include "string.h"
+#include <mutex>
+#include <thread>
 
 class SocketIO : public DefaultIO{
+private:
+    mutex writeMutex;
 public:
     explicit SocketIO(int id);
 

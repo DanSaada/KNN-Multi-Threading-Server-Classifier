@@ -145,7 +145,6 @@ void Client::settingCommandClientSide() {
 void Client::classifyAndDisplayCommandsClientSide() {
     this->standardIo->write(this->socketIo->read());
     //creating an explicit delay
-    //////////////////////////////////////////////////this->socketIo->write("#####$$$");
     this->socketIo->write("$$$");
 }
 
@@ -168,7 +167,7 @@ void Client::downloadResultsCommandClientSide() {
     ofstream outFile;
     outFile.open(path);
     if (!outFile) {
-        standardIo->write("invalid input\n");
+        this->standardIo->write("invalid input\n");
         this->socketIo->write("$$$");
         return;
     }
