@@ -80,24 +80,31 @@ void Server::clientHandler(int client_sock) {
 /**
  * This function handles the queue, by creating a thread for each client.
  * The function runs in an infinite loop and awaits for clients to be added to the queue, the function then locks
- * the queue's mutex and retrieve the first client in the queue
- * the thread is detached so it runs independently
+ * the queue's mutex and retrieve the front client in the queue.
+ * Note that the thread is detached so it can run independently.
  */
 void Server::handleQueue() {
     while(true) {
+        //lock the queue's mutex
         unique_lock<mutex> lock(queueMutex);
+
         queueCV.wait(lock, [] {return !clientQueue.empty();});
 
+        //retrieve the client's socket from the front of the queue and pop it from the queue
         int clientSocket = clientQueue.front();
         clientQueue.pop();
+        //unlock the queue's mutex
         lock.unlock();
 
+        //creating a thread for a client-server connection
         thread(&Server::clientHandler ,clientSocket).detach();
     }
 }
 
 /**
  * This function implements a TCP socket connection protocol between a client and a server.
+ * The function creates a thread that handles the queue, and then awaits for clients to connect him, if there is
+ * room in the queue we push a new socket to it.
  */
 void Server::tcpSocket() {
     //create a thread that is responsible for the queue
