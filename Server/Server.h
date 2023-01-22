@@ -24,6 +24,12 @@
 #include "../Commands/Command.h"
 #include <thread>
 #include "ClientHandler.h"
+#include <queue>
+#include <cstdio>
+#include <unistd.h>
+#include <condition_variable>
+
+
 
 class Server {
 private:
@@ -31,6 +37,7 @@ private:
     int port;
     int sock;
 public:
+
     int getSocket() const;
 
     void setSocket(int socket);
@@ -40,6 +47,10 @@ public:
     explicit Server(const string& port);
 
     void tcpSocket();
+
+    static void handleQueue();
+
+    static void clientHandler(int client_sock);
 
 };
 

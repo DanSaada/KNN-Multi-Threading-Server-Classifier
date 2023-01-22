@@ -4,6 +4,10 @@
 
 #include "Server.h"
 
+queue<int> clientQueue;
+mutex queueMutex;
+std::condition_variable queueCV;
+
 /**
  * Constructor of Server
  * @param port port of the server
@@ -60,14 +64,44 @@ void Server::initializeSocket() {
     if (listen(sock, 5) < 0) {
         exit(1);
     }
+}
 
+/**
+ * This function create a ClientHandler for an active client-server connection.
+ *
+ * @param client_sock the socket which the client and the server will communicate in.
+ */
+void Server::clientHandler(int client_sock) {
+    auto *ch = new ClientHandler(client_sock);
+    ch->handle();
+    close(client_sock);
+}
+
+/**
+ * This function handles the queue, by creating a thread for each client.
+ * The function runs in an infinite loop and awaits for clients to be added to the queue, the function then locks
+ * the queue's mutex and retrieve the first client in the queue
+ * the thread is detached so it runs independently
+ */
+void Server::handleQueue() {
+    while(true) {
+        unique_lock<mutex> lock(queueMutex);
+        queueCV.wait(lock, [] {return !clientQueue.empty();});
+
+        int clientSocket = clientQueue.front();
+        clientQueue.pop();
+        lock.unlock();
+
+        thread(&Server::clientHandler ,clientSocket).detach();
+    }
 }
 
 /**
  * This function implements a TCP socket connection protocol between a client and a server.
  */
 void Server::tcpSocket() {
-    vector<thread *> tVec;
+    //create a thread that is responsible for the queue
+    thread queue_thread(&Server::handleQueue);
     while (true) {
         //accept an incoming Client connection
         struct sockaddr_in client_sin;
@@ -76,24 +110,23 @@ void Server::tcpSocket() {
         if (client_sock < 0) {
             break;
         }else{
-            //////option 1:
-            auto *client = new thread([client_sock]() {
-                auto *ch = new ClientHandler(client_sock);
-                ch->handle();
+            unique_lock<mutex> lock(queueMutex);
+            //check that there is a room in the queue
+            if (clientQueue.size() < 5) {
+                clientQueue.push(client_sock);
+                queueCV.notify_one();
+            }else{
+                cout << "The server is occupied, please try again later." << endl;
                 close(client_sock);
-            });
-            tVec.push_back(client);
+            }
         }
     }
-
-    //wait for all threads to finish their work and delete them
-    for (auto client: tVec) {
-        client->join();
-        delete client;
-    }
+    //wait for the thread that is responsible for the managing the queue
+    queue_thread.join();
     //close the connection
     close(sock);
 }
+
 
 /**
  * This function checks if a string is a positive number
