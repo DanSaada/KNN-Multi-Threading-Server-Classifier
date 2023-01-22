@@ -21,19 +21,22 @@ DownloadResultsCommand::DownloadResultsCommand(DefaultIO* defaultIo): Command(){
 void DownloadResultsCommand::execute(Info *info) {
     //check that the user already uploaded the classified files
     if (!info->isUploaded){
-        dio->write("please upload data\n");
-        this->dio->write("$$$");
-        if(this->dio->read() == "#####"){
-            return;
-        }
+        dio->write("please upload data\n$$$");
+        this->dio->read();
+        return;
+//        if(this->dio->read() == "#####"){
+//            return;
+//        }
     }
     //check that the user already classified the data
     if(!info->isClassified){
-        dio->write("please classify the data\n");
-        this->dio->write("$$$");
-        if(this->dio->read() == "#####"){
-            return;
-        }
+        dio->write("please classify the data\n$$$");
+        this->dio->read();
+        return;
+
+//        if(this->dio->read() == "#####"){
+//            return;
+//        }
     }
 
     //send a numbered list of the vectors classification
@@ -44,7 +47,8 @@ void DownloadResultsCommand::execute(Info *info) {
         dio->write(output);
     }
     this->dio->write("$$$");
-    if(this->dio->read() == "#####"){
-        return;
-    }
+    this->dio->read();
+//    if(this->dio->read() == "#####"){
+//        return;
+//    }
 }

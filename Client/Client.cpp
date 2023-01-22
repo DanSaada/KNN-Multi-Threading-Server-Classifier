@@ -131,10 +131,10 @@ void Client::settingCommandClientSide() {
     this->socketIo->write(str + "$$$");
     //checks that the data entered a proper way
     invalidOption = this->socketIo->read();
-    this->socketIo->write("$$$");
     if(!invalidOption.empty()) {
         this->standardIo->write(invalidOption);
     }
+    this->socketIo->write("$$$");
 }
 
 /**
@@ -145,7 +145,8 @@ void Client::settingCommandClientSide() {
 void Client::classifyAndDisplayCommandsClientSide() {
     this->standardIo->write(this->socketIo->read());
     //creating an explicit delay
-    this->socketIo->write("#####$$$");
+    //////////////////////////////////////////////////this->socketIo->write("#####$$$");
+    this->socketIo->write("$$$");
 }
 
 /**
@@ -159,11 +160,20 @@ void Client::downloadResultsCommandClientSide() {
     string data = this->socketIo->read();
     if(data == "please upload data\n" || data == "please classify the data\n") {
         this->standardIo->write(data);
-        this->socketIo->write("#####$$$");
+        this->socketIo->write("$$$");
         return;
     }
-    this->socketIo->write("#####$$$");
     getline(cin, path);
+    //checks if we can actually open the file
+    ofstream outFile;
+    outFile.open(path);
+    if (!outFile) {
+        standardIo->write("invalid input\n");
+        this->socketIo->write("$$$");
+        return;
+    }
+    this->socketIo->write("$$$");
+    //we can open the file, we will make the downloading in new thread
     thread t(&downloadData, path, data);
     t.detach();
 }
@@ -235,10 +245,6 @@ void Client::communicate() {
 void Client::downloadData(string route, string data) {
     ofstream outFile;
     outFile.open(route);
-    if (!outFile) {
-        cout << "invalid input\n";
-        return;
-    }
     outFile << data;
     outFile.close();
 }

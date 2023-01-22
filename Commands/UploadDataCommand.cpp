@@ -78,20 +78,19 @@ void UploadDataCommand::execute(Info *info) {
     info->isUploaded = false;
     //delete the old classified vectors file
     if (!info->database->getMTrain()->empty()) {
-        for (unsigned long i = info->database->getMTrain()->size() - 1; i > 0; --i) {
+        for (long i = (long) info->database->getMTrain()->size() - 1; i >= 0; --i) {
             info->database->getMTrain()->at(i).getVector().pop_back();
             info->database->getMTrain()->pop_back();
         }
     }
     //delete the old unclassified vectors file
     if (!info->database->getMTest()->empty()) {
-        for (unsigned long i = info->database->getMTest()->size() - 1; i > 0; --i) {
+        for (long i = (long) info->database->getMTest()->size() - 1; i >= 0; --i) {
             info->database->getMTest()->at(i).getVector().pop_back();
             info->database->getMTest()->pop_back();
         }
     }
-    this->dio->write("Please upload your local train CSV file.\n");
-    this->dio->write("$$$");
+    this->dio->write("Please upload your local train CSV file.\n$$$");
 
     string csvTrainData;
     // "$$$" is a sign from the client that means end of file.
@@ -108,8 +107,7 @@ void UploadDataCommand::execute(Info *info) {
 
     //check that the train data isn't empty
     if(info->database->getMTrain()->empty()){
-        this->dio->write("invalid input\n");
-        this->dio->write("$$$");
+        this->dio->write("invalid input\n$$$");
         return;
     }
     //check validation of the input and create a new TrainCatalog based on the information passed
@@ -119,8 +117,7 @@ void UploadDataCommand::execute(Info *info) {
     //read CSV test data from the client
     string csvTestData;
 
-    this->dio->write("Please upload your local test CSV file.\n");
-    this->dio->write("$$$");
+    this->dio->write("Please upload your local test CSV file.\n$$$");
 
     csvTestData = this->dio->read();
     //the test file didn't open properly in the client
@@ -131,10 +128,10 @@ void UploadDataCommand::execute(Info *info) {
     CatalogTestMaker(info, csvTestData);
 
 
-    this->dio->write("Upload complete.\n");
-    this->dio->write("$$$");
+    this->dio->write("Upload complete.\n$$$");
     info->isUploaded = true;
     info->isClassified = false;
+    this->dio->read();
 }
 
 

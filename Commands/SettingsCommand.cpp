@@ -30,6 +30,7 @@ void SettingsCommand::execute(Info *info) {
     //if the user didn't enter new K and distance metric than live it as is
     if(str.length() == 0){
         this->dio->write("$$$");
+        this->dio->read();
         return;
     } else{
         //extract K
@@ -66,5 +67,6 @@ void SettingsCommand::execute(Info *info) {
             info->database->setMDistanceString(newDis);
             info->database->setMDistance(newDis);
         }
+        this->dio->read();
     }
 }

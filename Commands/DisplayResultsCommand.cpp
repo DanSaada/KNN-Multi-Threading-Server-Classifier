@@ -20,19 +20,22 @@ DisplayResultsCommand::DisplayResultsCommand(DefaultIO* defaultIo): Command(){
 void DisplayResultsCommand::execute(Info *info) {
     //check that the user already uploaded the classified files
     if (!info->isUploaded){
-        dio->write("please upload data\n");
-        this->dio->write("$$$");
-        if(this->dio->read() == "#####"){
-            return;
-        }
+        dio->write("please upload data\n$$$");
+        this->dio->read();
+        return;
+//        if(this->dio->read() == "#####"){
+//            return;
+//        }
     }
     //check that the user already classified the data
     if(!info->isClassified){
         dio->write("please classify the data\n");
         this->dio->write("$$$");
-        if(this->dio->read() == "#####"){
-            return;
-        }
+        this->dio->read();
+        return;
+//        if(this->dio->read() == "#####"){
+//            return;
+//        }
     }
 
     //send a numbered list of the vectors classification
@@ -42,9 +45,9 @@ void DisplayResultsCommand::execute(Info *info) {
         output = to_string(i + 1) + "\t" + info->database->getMTest()->at(i).getName() + "\n";
         dio->write(output);
     }
-    dio->write("Done.\n");
-    this->dio->write("$$$");
-    if(this->dio->read() == "#####"){
-        return;
-    }
+    dio->write("Done.\n$$$");
+    this->dio->read();
+//    if(this->dio->read() == "#####"){
+//        return;
+//    }
 }
