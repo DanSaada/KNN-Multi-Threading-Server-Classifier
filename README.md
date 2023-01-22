@@ -70,8 +70,8 @@ But if one of them registered illegally, for example a negative number or a metr
 - In tasks 1,5, the client is required to enter a path to the files on his computer, if he registers an invalid path, the server will return an error and reprint the menu on the client's screen
 - The server classifies the trained and test vectors according to the length of the first vector entered into the trained catalog
 - We have created a manual protocol for sending and reading messages from a socket, that is, so that the sender can inform the receiving party of the end of a message that he must send at the end "$$$", this is the sign we chose for the end of sending a message.
--Sometimes to inform about an error we used additional signs in the message for example "#" but in any case we sent "$$$" at the end of the message
--In cases where the client was unable to connect to the server's port or IP, we will exit directly from the client's program.
+- Sometimes to inform about an error we used additional signs in the message for example "#" but in any case we sent "$$$" at the end of the message
+- In cases where the client was unable to connect to the server's port or IP, we will exit directly from the client's program.
 
 ## Distances
 
