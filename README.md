@@ -62,13 +62,16 @@ As can be understood from the menu, by pressing 1 the user can upload a "Train" 
 
 ## Dealing with edge cases
 
-* If the user entered an input not in the order discussed above, the server will return an invalid input message and request a new input.
-* In cases where a vector entered by the user does not contain numbers or alternatively is not the appropriate size for the vectors in the database, the server will return an invalid input message and request a new input.
-* If the customer enters a distance function corresponding to one of the five distance functions, the server will return an invalid input message and request a new input.
-* If the k inserted into the arguments is less than or equal to zero, we will exit the program. Or alternatively if k is greater than the number of vectors in the database, we will turn k into the number of vectors to prevent illegal access.
-* In cases where the client was unable to connect to the server's port or IP, we will exit directly from the client's program.
-* If the server fails to connect to any port, we will exit the program.
-* If the client sends -1 as input to the server, the server will close the communication with the client and wait for the next user, at this time the client will close its socket and end the program.
+- When a customer writes a number that is not between the options or any sign that is not a number, invalid input will be printed to the screen
+- When the client requests to classify the vectors or display them or upload them to an external file (options 3,4,5) before uploading unclassified and classified vectors the server will send a message and ask him to first perform task 1
+- When a client requests tasks 4,5 before performing task 3, i.e. classifying the vectors, the server will print a request from the client to sort the vectors first
+- In task 2, the customer can request to replace the distance metric, and the k
+But if one of them registered illegally, for example a negative number or a metric that is not one of the 5 options, the server will return an appropriate error message and will not change the metric and the k
+- In tasks 1,5, the client is required to enter a path to the files on his computer, if he registers an invalid path, the server will return an error and reprint the menu on the client's screen
+- The server classifies the trained and test vectors according to the length of the first vector entered into the trained catalog
+- We have created a manual protocol for sending and reading messages from a socket, that is, so that the sender can inform the receiving party of the end of a message that he must send at the end "$$$", this is the sign we chose for the end of sending a message.
+- Sometimes to inform about an error we used additional signs in the message for example "#" but in any case we sent "$$$" at the end of the message
+- In cases where the client was unable to connect to the server's port or IP, we will exit directly from the client's program.
 
 ## Distances
 
