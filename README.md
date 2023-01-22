@@ -42,8 +42,10 @@ In order to disconnect the dependency between the command and the input/output s
 
 <img width="465" alt="image" src="https://user-images.githubusercontent.com/112869076/213036773-1993684a-f380-4e6c-84d4-69651b847df2.png">
 
-Because we considered each connection between the server and the different clients as a separate task, we used task parallelism by multi threading those connections. That is, at a given moment, our server can communicate with several different clients at the same time, which means each client-server connection is handled by a separate thread.
-Another place where this ability is manifested is in option 5 in the menu. When downloading the classifications of the vectors as a list into a file on the computer, the user can continue asking for other command's execution requests while the file is being downloaded to his computer.
+Because we considered each connection between the server and the different clients as a separate task, we used task parallelism by multi threading those connections. That is, at a given moment, our server can communicate with several different clients at the same time, which means each client-server connection is handled by a separate thread. We also used the thread pull design pattern, which is basically a way to manage a large number of threads efficiently by reusing a fixed number of threads from a pool, rather than creating a new thread for each task. We took an advantage over this method by creating a priority queue which controls at the amount of requests from the clients to connect with the server, using a unique lock and mutex. That is, when a connection is made we check if there is a room in the queue, and add clients to the queue, from then we pop the front client from the queue and handle his requests on a thread that is available for work.
+Another place where this ability is manifested is for example in option 5 in the menu, while downloading the classifications of the vectors as a list into a file on the computer, the user can continue asking for other command's execution requests because the action of downloading runs in a different thread.
+
+<img width="343" alt="image" src="https://user-images.githubusercontent.com/112869076/213940913-7d4e43de-c449-4ea4-90fa-324a0554722e.png">
 
 
 ## Course of the program
@@ -72,6 +74,7 @@ But if one of them registered illegally, for example a negative number or a metr
 - We have created a manual protocol for sending and reading messages from a socket, that is, so that the sender can inform the receiving party of the end of a message that he must send at the end "$$$", this is the sign we chose for the end of sending a message.
 - Sometimes to inform about an error we used additional signs in the message for example "#" but in any case we sent "$$$" at the end of the message
 - In cases where the client was unable to connect to the server's port or IP, we will exit directly from the client's program.
+- When using the write function in SocketIO we added a unique lock with a mutex, this way, when multiple threads are trying to access the function at the same time, only one thread will be able to execute the function at a time and the others will wait until the lock is released, what will prevent a situation of merging of data when communicating via the socket.
 
 ## Distances
 
