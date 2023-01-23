@@ -75,6 +75,7 @@ But if one of them registered illegally, for example a negative number or a metr
 - Sometimes to inform about an error we used additional signs in the message for example "#" but in any case we sent "$$$" at the end of the message
 - In cases where the client was unable to connect to the server's port or IP, we will exit directly from the client's program.
 - When using the write function in SocketIO we added a unique lock with a mutex, this way, when multiple threads are trying to access the function at the same time, only one thread will be able to execute the function at a time and the others will wait until the lock is released, what will prevent a situation of merging of data when communicating via the socket.
+-If the user already uploaded data to the server (option 1 in the menu), and at any point later he chose to press 1 again, the data that was stored in the database will automatically will be deleted, without dependance on the validation of the new inserted path. That is, if the user tries to press any other option in the menu that rely on prior data he would be ask to classify the new data.
 
 ## Distances
 
