@@ -69,6 +69,7 @@ As can be understood from the menu, by pressing 1 the user can upload a "Train" 
 - When a client requests tasks 4,5 before performing task 3, i.e. classifying the vectors, the server will print a request from the client to sort the vectors first
 - In task 2, the customer can request to replace the distance metric, and the k
 But if one of them registered illegally, for example a negative number or a metric that is not one of the 5 options, the server will return an appropriate error message and will not change the metric and the k
+- In task 2, if the customer entered k that is greater than the number of vectors, we will not prohibit him from doing so. But if later he pressed 3, the KNN sorting algorithm will be performed on all vectors, meaning we will treat k as if it were equal to the number of vectors
 - In tasks 1,5, the client is required to enter a path to the files on his computer, if he registers an invalid path, the server will return an error and reprint the menu on the client's screen
 - The server classifies the trained and test vectors according to the length of the first vector entered into the trained catalog
 - We have created a manual protocol for sending and reading messages from a socket, that is, so that the sender can inform the receiving party of the end of a message that he must send at the end "$$$", this is the sign we chose for the end of sending a message.
