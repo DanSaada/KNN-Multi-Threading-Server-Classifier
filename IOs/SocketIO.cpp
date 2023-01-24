@@ -46,7 +46,6 @@ string SocketIO:: read() {
 */
 void SocketIO:: write(string toSend) {
     //locking the flow of the write execution from other threads.
-    unique_lock<mutex> lock(writeMutex);
     char data_addr[4096] = {0};
     toSend.copy(data_addr, toSend.length(), 0);
     int data_len = (int) strlen(data_addr);
