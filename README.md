@@ -73,7 +73,7 @@ But if one of them registered illegally, for example a negative number or a metr
 - In task 2, if the customer entered k that is greater than the number of vectors, we will not prohibit him from doing so. But if later he pressed 3, the KNN sorting algorithm will be performed on all vectors, meaning we will treat k as if it were equal to the number of vectors
 - In tasks 1,5, the client is required to enter a path to the files on his computer, if he registers an invalid path, the server will return an error and reprint the menu on the client's screen
 - The server classifies the trained and test vectors according to the length of the first vector entered into the trained catalog
-- We have created a manual protocol for sending and reading messages from a socket, that is, so that the sender can inform the receiving party of the end of a message that he must send at the end "$$$", this is the sign we chose for the end of sending a message.
+- We have created a manual protocol for sending and reading messages from a socket, that is, the sender can inform the receiver of the message that this is the end of a message.
 - Sometimes to inform about an error we used additional signs in the message for example "#" but in any case we sent "$$$" at the end of the message
 - In cases where the client was unable to connect to the server's port or IP, we will exit directly from the client's program.
 - When using the write function in SocketIO we added a unique lock with a mutex, this way, when multiple threads are trying to access the function at the same time, only one thread will be able to execute the function at a time and the others will wait until the lock is released, what will prevent a situation of merging of data when communicating via the socket.
