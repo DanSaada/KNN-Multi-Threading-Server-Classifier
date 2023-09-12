@@ -79,6 +79,10 @@ But if one of them registered illegally, for example a negative number or a metr
 
 ## Distances
 
+As previously discussed, our algorithm incorporates various distance calculation features, and we've even provided users with the flexibility to choose the specific formula they wish to utilize.
+
+For additional details regarding the distances employed in our algorithm, please refer to the following links:
+
 * <a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean distance<a name="">
 
   <img width="137" alt="image" src="https://user-images.githubusercontent.com/112869076/201759198-da035808-d982-4b36-bc8c-a475d4bb8d48.png">
